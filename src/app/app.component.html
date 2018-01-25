@@ -1,21 +1,177 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-header></app-header>
 <div style="text-align:center">
-  <h1>
+  <!-- <h1>
     Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  </h1> -->
+  <img width="800" alt="Angular Logo" src="../assets/ThriveA.jpg">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<!-- Section 1 -->
+<div [class.hidden]="selectedSection != 1" class="container" style="padding-left: 20%;">
+  <h2>Why did you want to incorporate as an LLC?</h2>
+  <div class="form-check ">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="myThrivePreferences.incorpReasons.limitLiab">
+    <label class="form-check-label" for="defaultCheck1">
+      Limit my liability
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" [(ngModel)]="myThrivePreferences.incorpReasons.simpTax">
+    <label class="form-check-label" for="defaultCheck2">
+      Simplify my taxes
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3" [(ngModel)]="myThrivePreferences.incorpReasons.professional">
+    <label class="form-check-label" for="defaultCheck2">
+      Look more professional
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4" [(ngModel)]="myThrivePreferences.incorpReasons.business">
+    <label class="form-check-label" for="defaultCheck2">
+      Larger companies prefer to work with other businesses
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5" [(ngModel)]="myThrivePreferences.incorpReasons.fundraise">
+    <label class="form-check-label" for="defaultCheck2">
+      To fundraise
+    </label>
+  </div>    
+</div>
+
+<!-- Section 2 -->
+<div [class.hidden]="selectedSection !== 2" class="container" style="padding-left: 20%;">
+  <h2>Which type of business do you want to incorporate as?</h2>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="llc" [(ngModel)]="myThrivePreferences.typeCorp">
+    <label class="form-check-label" for="exampleRadios1">
+      Limited Liability Corporation (LLC)
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="scorp" [(ngModel)]="myThrivePreferences.typeCorp">
+    <label class="form-check-label" for="exampleRadios2">
+      S-Corporation
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="ccorp" [(ngModel)]="myThrivePreferences.typeCorp">
+    <label class="form-check-label" for="exampleRadios2">
+      C-Corporation
+    </label>
+  </div>
+</div>   
+
+<!-- Section 3 -->
+<div [class.hidden]="selectedSection !== 3" class="container">
+  <!-- LLC -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
+    <h2>So you want to incorporate as an LLC!</h2>
+  </div>
+
+  <!-- S-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
+    <h2>So you want to incorporate as an S-Corporation!</h2>
+  </div>
+
+  <!-- C-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
+    <h2>So you want to incorporate as a C-Corporation!</h2>
+  </div>
+  
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Company name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="myThrivePreferences.corpInfo.name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Registered agent</label>
+        <input type="text" class="form-control" name="regAgent" [(ngModel)]="myThrivePreferences.corpInfo.regAgent">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Business purpose</label>
+        <input type="text" class="form-control" name="purpose" [(ngModel)]="myThrivePreferences.corpInfo.purpose">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Organizer</label>
+        <input type="text" class="form-control" name="organizer" [(ngModel)]="myThrivePreferences.corpInfo.organizer">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Members/Managers</label>
+        <input type="text" class="form-control" name="members" [(ngModel)]="myThrivePreferences.corpInfo.members">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Management structure</label>
+        <input type="text" class="form-control" name="manageStruct" [(ngModel)]="myThrivePreferences.corpInfo.manageStruct">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputAddress">Legal address of the company</label>
+        <input type="text" class="form-control" name="inputAddress" [(ngModel)]="myThrivePreferences.corpInfo.address1">
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" name="inputAddress2" [(ngModel)]="myThrivePreferences.corpInfo.address2">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">City</label>
+          <input type="text" class="form-control" name="inputCity" [(ngModel)]="myThrivePreferences.corpInfo.city">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select name="inputState" class="form-control" [(ngModel)]="myThrivePreferences.corpInfo.state">
+            <option selected>Choose...</option>
+            <option>CA</option>
+            <option>DE</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">Zip</label>
+          <input type="text" class="form-control" name="inputZip" [(ngModel)]="myThrivePreferences.corpInfo.zip">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Section 4 -->
+<div [class.hidden]="selectedSection !== 4" class="container" style="padding-left: 20%;">
+  <h2>Are you ready to submit your incorporation application?</h2><br>
+  <h3>Review your company information:</h3>
+  <div class="container">
+    <b>Company name:</b> {{myThrivePreferences.corpInfo.name}} <br>
+    <b>Registered agent:</b> {{myThrivePreferences.corpInfo.regAgent}} <br>
+    <b>Purpose:</b> {{myThrivePreferences.corpInfo.purpose}} <br>
+    <b>Organizer:</b> {{myThrivePreferences.corpInfo.organizer}} <br>
+    <b>Members:</b> {{myThrivePreferences.corpInfo.members}} <br>
+    <b>Management structure:</b> {{myThrivePreferences.corpInfo.manageStruct}} <br>
+    <b>Address 1:</b> {{myThrivePreferences.corpInfo.address1}} <br>
+    <b>Address 2:</b> {{myThrivePreferences.corpInfo.address2}} <br>
+    <b>City:</b> {{myThrivePreferences.corpInfo.city}} <br>
+    <b>State:</b> {{myThrivePreferences.corpInfo.state}} <br>
+    <b>Zipcode:</b> {{myThrivePreferences.corpInfo.zip}}
+  </div><br>
+  <div class="container">
+    <button type="button" class="btn btn-secondary btn-lg" [disabled]="selectedSection === 1" (click)="prevClicked()">Previous</button>
+    <button class="btn btn-success btn-lg" type="submit" (click)="applyIncorp()">Apply</button>
+  </div>
+</div>
+
+<!-- Section 5 -->
+<div [class.hidden]="selectedSection !== 5" class="container">
+  <h1 style="text-align:center">Congratulations!</h1> 
+  <h2 style="text-align:center">You have successfully applied to incorporate your company!</h2>
+</div>
+
+<!-- Previous | Next -->
+<br>
+<div [class.hidden]="selectedSection > 3" class="container" style="padding-left: 20%;">
+  <button type="button" class="btn btn-secondary btn-lg" [disabled]="selectedSection === 1" (click)="prevClicked()">Previous</button>
+  <button type="button" class="btn btn-primary btn-lg" [disabled]="myThrivePreferences.typeCorp === null && selectedSection === 2" (click)="nextClicked()">Next</button>
+</div>
+
 
