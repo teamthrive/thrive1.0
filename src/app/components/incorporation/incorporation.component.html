@@ -14,7 +14,7 @@
   <div class="form-check">
     <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" [(ngModel)]="myThrivePreferences.incorpReasons.simpTax">
     <label class="form-check-label" for="defaultCheck2">
-      Simplify my taxes
+      Reduce my taxes
     </label>
   </div>
   <div class="form-check">
@@ -62,6 +62,127 @@
 
 <!-- Section 3 -->
 <div [class.hidden]="selectedSection !== 3" class="container">
+  <!-- LLC -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
+    <h2>So you want to incorporate as an LLC!</h2>
+  </div>
+
+  <!-- S-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
+    <h2>So you want to incorporate as an S-Corporation!</h2>
+  </div>
+
+  <!-- C-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
+    <h2>So you want to incorporate as a C-Corporation!</h2>
+  </div>
+
+  <form>
+    <div class="form-row">
+      <label for="income">Annual Income</label><br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.annualIncome">
+        <div class="input-group-append">
+          <span class="input-group-text">.00</span>
+        </div>
+      </div>
+      
+      <label for="income">Annual Business Expenses</label><br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.annualExpenses">
+        <div class="input-group-append">
+          <span class="input-group-text">.00</span>
+        </div>
+      </div>
+
+      <div class="form-check col-md-12">
+        <input class="form-check-input" type="radio" name="filingstatus" id="single" value="single" [(ngModel)]="myThrivePreferences.financials.filingStatus">
+        <label class="form-check-label" for="filingstatus">
+          Single
+        </label>
+      </div>
+      <div class="form-check col-md-12">
+        <input class="form-check-input" type="radio" name="filingstatus" id="married" value="married" [(ngModel)]="myThrivePreferences.financials.filingStatus">
+        <label class="form-check-label" for="filingstatus">
+          Married
+        </label>
+      </div><br><br>
+
+      <label for="income">Salary from Business</label><br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.scorpSalary">
+        <div class="input-group-append">
+          <span class="input-group-text">.00</span>
+        </div>
+      </div>
+
+      <label for="income">Additional Taxable Income</label><br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.additionalTaxableIncome">
+        <div class="input-group-append">
+          <span class="input-group-text">.00</span>
+        </div>
+      </div>
+
+      <label for="income">Estimated Value of Company Assets</label><br>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.estCompanyAssets">
+        <div class="input-group-append">
+          <span class="input-group-text">.00</span>
+        </div>
+      </div>
+      
+      <div class="form-check">
+        <input class="form-check-input" name="specificedServiceBusiness" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="myThrivePreferences.financials.specificedServiceBusiness">
+        <label class="form-check-label" for="defaultCheck1">
+          Special Service Business
+        </label>
+      </div>
+
+    </div>
+  </form>
+  
+  <button type="button" class="btn btn-secondary btn-lg" (click)="calculateSPTaxes()">Calculate</button>
+
+</div>
+
+<!-- Section 4 -->
+<div [class.hidden]="selectedSection !== 4" class="container">
+  <!-- LLC -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
+    <h2>Your Estimated Taxes for incorporating as an LLC is:</h2>
+  </div>
+
+  <!-- S-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
+    <h2>Your Estimated Taxes for incorporating as an S-Corporation is:</h2>
+  </div>
+
+  <!-- C-Corp -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
+    <h2>Your Estimated Taxes for incorporating as a C-Corporation is:</h2>
+  </div>
+
+  
+</div>
+
+<!-- Section 5 -->
+<div [class.hidden]="selectedSection !== 5" class="container">
   <!-- LLC -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
     <h2>So you want to incorporate as an LLC!</h2>
@@ -133,8 +254,8 @@
   </form>
 </div>
 
-<!-- Section 4 -->
-<div [class.hidden]="selectedSection !== 4" class="container" style="padding-left: 20%;">
+<!-- Section 6 -->
+<div [class.hidden]="selectedSection !== 6" class="container" style="padding-left: 20%;">
   <h2>Are you ready to submit your incorporation application?</h2><br>
   <h3>Review your company information:</h3>
   <div class="container">
@@ -156,15 +277,15 @@
   </div>
 </div>
 
-<!-- Section 5 -->
-<div [class.hidden]="selectedSection !== 5" class="container">
+<!-- Section 7 -->
+<div [class.hidden]="selectedSection !== 7" class="container">
   <h1 style="text-align:center">Congratulations!</h1> 
   <h2 style="text-align:center">You have successfully applied to incorporate your company!</h2>
 </div>
 
 <!-- Previous | Next -->
 <br>
-<div [class.hidden]="selectedSection > 3" class="container" style="padding-left: 20%;">
+<div [class.hidden]="selectedSection > totalNumPages" class="container" style="padding-left: 20%;">
   <button type="button" class="btn btn-secondary btn-lg" [disabled]="selectedSection === 1" (click)="prevClicked()">Previous</button>
   <button type="button" class="btn btn-primary btn-lg" [disabled]="myThrivePreferences.typeCorp === null && selectedSection === 2" (click)="nextClicked()">Next</button>
 </div>

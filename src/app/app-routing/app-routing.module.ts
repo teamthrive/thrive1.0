@@ -3,16 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IncorporationComponent } from '../components/incorporation/incorporation.component';
 import { HomeComponent } from '../components/home/home.component';
+import { PricingComponent } from '../components/pricing/pricing.component';
+import { FeaturesComponent } from '../components/features/features.component';
 
 const routes: Routes = [
   {
-      path: 'incorporate',
-      component: IncorporationComponent,
+    path: 'incorporate',
+    component: IncorporationComponent,
   },
   {
-    path: 'home', 
-    redirectTo: 'home', 
-    pathMatch: 'full' 
+    path: 'pricing',
+    component: PricingComponent,
+  },
+  {
+    path: 'features',
+    component: FeaturesComponent,
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: '', 
@@ -21,9 +30,9 @@ const routes: Routes = [
   },
   {
     path: '**', 
-    component: HomeComponent
+    redirectTo: 'home', 
+    pathMatch: 'full' 
   } 
-
 ];
 
 @NgModule({
