@@ -110,7 +110,27 @@
       
       <div class="container">
         <div class="card-deck mb-3 text-center">
-          
+          <div class="card mb-3 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">S Corporation</h4>
+            </div>
+            <div class="card-body">
+              <p>Estimated Taxes:</p>
+              <h1 class="card-title pricing-card-title">{{scorpTaxes.totalTaxes | currency}}<small class="text-muted">/ yr</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>State filing (and filing fee) required for creation</li><br>
+                <li>Ongoing state filings and fees</li><br>
+                <li>Strict ongoing corporate formalities requirements</li><br>
+                <li>Limited liability protection</li><br>
+                <li>Perpetual duration of the business</li><br>
+                <li>Ease of raising capital</li><br>
+                <li>Ease of adding owners/transferring ownership interest</li><br>
+                <li>Pass-through income/loss</li>
+              </ul>
+              <button type="button" class="btn btn-lg btn-block btn-primary" (click)="incorporate()">Incorporate Now</button>
+            </div>
+          </div>
+
           <div class="card mb-3 box-shadow">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Sole Proprietorship</h4>
@@ -122,7 +142,7 @@
                 <li>Owner has full control of management and operations</li><br>
                 <li>Pass-through income/loss</li>
               </ul>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
+              <a href="">Learn More</a>
             </div>
           </div>
       
@@ -140,7 +160,7 @@
                 <li>Limited liability protection</li><br>
                 <li>Pass-through income/loss</li>
               </ul>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Incorporate</button>
+              <a href="">Learn More</a>
             </div>
           </div>
       
