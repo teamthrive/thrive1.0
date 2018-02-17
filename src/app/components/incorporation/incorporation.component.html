@@ -1,5 +1,5 @@
 <!-- Section 1 -->
-<div [class.hidden]="selectedSection !== 1" class="container" style="padding-left: 20%;">
+<div [class.hidden]="selectedSection !== 1" class="container" style="padding: 5% 20%;">
   <h2>Why do you want to incorporate?</h2>
   <div class="form-check ">
     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="myThrivePreferences.incorpReasons.limitLiab">
@@ -60,12 +60,12 @@
 <div [class.hidden]="selectedSection !== 3" class="container">
   <!-- S-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
-    <h2>So you want to incorporate as an S-Corporation!</h2>
+    <h2>Let's set up your S-Corporation</h2>
   </div>
 
   <!-- C-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
-    <h2>So you want to incorporate as a C-Corporation!</h2>
+    <h2>Let's set up your C-Corporation</h2>
   </div>
 
   <form>
@@ -270,7 +270,7 @@
 
 <!-- Section 7 -->
 <div [class.hidden]="selectedSection !== 7" class="container">
-  <h1 style="text-align:center">Congratulations!</h1> 
+  <h1 style="text-align:center">Congratulations</h1> 
   <h2 style="text-align:center">You have successfully applied to incorporate your company!</h2>
 </div>
 

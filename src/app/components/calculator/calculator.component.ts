@@ -133,13 +133,14 @@ export class CalculatorComponent implements OnInit {
   ]
 
   OCCUPATIONS = [
+    "Architect",
     "Consultant",
     "Creative Professional",
-    "Tradesman",
-    "Engineer",
-    "Architect",
     "Doctor",
+    "Engineer",
     "Lawyer",
+    "Salesperson",
+    "Tradesman",
     "Other"
   ]
 
