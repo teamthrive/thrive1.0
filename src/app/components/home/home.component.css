@@ -9,6 +9,7 @@ p {
   background-position: bottom left;
   width: 100%;
   height: 425px;
+  background-size: cover;
 }
 #hero-text {
   color: white;
