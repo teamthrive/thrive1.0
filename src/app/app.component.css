@@ -1,0 +1,8 @@
+::ng-deep button.btn-primary {
+  background-color: rgb(54, 186, 138);
+  outline: none;
+  border: none;
+}
+::ng-deep button.btn-primary:hover {
+  background-color: rgb(54, 186, 138);
+}

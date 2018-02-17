@@ -1,7 +1,3 @@
-<div style="text-align:center">
-  <img width="800" alt="Angular Logo" src="assets/images/ThriveA.jpg">
-</div>
-
 <!-- Section 1 -->
 <div [class.hidden]="selectedSection !== 1" class="container" style="padding-left: 20%;">
   <h2>Why do you want to incorporate?</h2>
@@ -62,11 +58,6 @@
 
 <!-- Section 3 -->
 <div [class.hidden]="selectedSection !== 3" class="container">
-  <!-- LLC -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
-    <h2>So you want to incorporate as an LLC!</h2>
-  </div>
-
   <!-- S-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
     <h2>So you want to incorporate as an S-Corporation!</h2>
@@ -157,7 +148,7 @@
     </div>
   </form>
   
-  <button type="button" class="btn btn-secondary btn-lg" (click)="calculateSPTaxes()">Calculate</button>
+  <button type="button" class="btn btn-primary btn-lg" (click)="calculateSPTaxes()">Calculate Potential Savings</button>
 
 </div>
 
