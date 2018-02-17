@@ -11,6 +11,9 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { FeaturesComponent } from './components/features/features.component';
+import { ComparisonsComponent } from './components/comparisons/comparisons.component';
+
+import { FinancialService } from "./services/financial.service";
 
 @NgModule({
   declarations: [
@@ -21,14 +24,15 @@ import { FeaturesComponent } from './components/features/features.component';
     HomeComponent,
     FooterComponent,
     PricingComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    ComparisonsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [FinancialService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

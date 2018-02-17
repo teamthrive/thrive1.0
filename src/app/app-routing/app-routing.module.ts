@@ -6,8 +6,13 @@ import { IncorporationComponent } from '../components/incorporation/incorporatio
 import { HomeComponent } from '../components/home/home.component';
 import { PricingComponent } from '../components/pricing/pricing.component';
 import { FeaturesComponent } from '../components/features/features.component';
+import { ComparisonsComponent } from "../components/comparisons/comparisons.component";
 
 const routes: Routes = [
+  {
+    path: 'comparisons',
+    component: ComparisonsComponent,
+  },
   {
     path: 'calculator',
     component: CalculatorComponent,

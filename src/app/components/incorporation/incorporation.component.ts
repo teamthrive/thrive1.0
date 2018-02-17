@@ -12,7 +12,7 @@ export class IncorporationComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectedSection: number = 3;
+  selectedSection: number = 1;
   totalNumPages: number = 5;
 
   myThrivePreferences = {
@@ -58,6 +58,16 @@ export class IncorporationComponent implements OnInit {
     500000,
     100000000
   ] 
+
+  TAX_BRACKET_PERCENTAGES = [
+    0.10,
+    0.12,
+    0.22,
+    0.24,
+    0.32,
+    0.35,
+    0.37  
+  ] 
   
   applyIncorp() {
     console.log(this.myThrivePreferences.corpInfo)
@@ -79,63 +89,13 @@ export class IncorporationComponent implements OnInit {
   getFederalIncomeTax(income){
     let remaining = income * 0.9235;
     let totalTax = 0;
-
-    // if(remaining > 0){
-    //   let taxInBracket = Math.min(9525, remaining) * 0.10
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 9525;
-
-    // if(remaining > 9525){
-    //   let taxInBracket = (Math.min(38700, remaining) - 9525) * 0.12
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 38700;
-
-    // if(remaining > 38700){
-    //   let taxInBracket = (Math.min(82500, remaining) - 38700) * 0.22
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 82500;
-
-    // if(remaining > 82500){
-    //   let taxInBracket = (Math.min(157500, remaining) - 82500) * 0.24
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 157500;
-
-    // if(remaining > 157500){
-    //   let taxInBracket = (Math.min(200000, remaining) - 157500) * 0.32
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 200000;
-
-    // if(remaining > 200000){
-    //   let taxInBracket = (Math.min(500000, remaining) - 200000) * 0.35
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // remaining -= 500000;
-
-    // if(remaining > 500000){
-    //   let taxInBracket = remaining * 0.37;
-    //   totalTax += taxInBracket;
-    //   console.log(taxInBracket);
-    // }
-    // return totalTax;
     var i;
-    for (i = 1; i < this.TAX_BRACKETS.length; i++) { 
-      if(remaining > this.TAX_BRACKETS[i - 1]){
-        console.log('remaining: ' + remaining);
-        console.log('this.TAX_BRACKETS[i - 1]: ' + this.TAX_BRACKETS[i - 1]);
-        console.log('diff: ' + (remaining - this.TAX_BRACKETS[i - 1]));
-        remaining -= this.TAX_BRACKETS[i - 1];
-      }
+    for (i = 0; i < this.TAX_BRACKET_PERCENTAGES.length; i++) {       
+      let taxable_chunk = Math.min(this.TAX_BRACKETS[i + 1] - this.TAX_BRACKETS[i], remaining - this.TAX_BRACKETS[i]);
+      console.log('taxable_chunk: ' + taxable_chunk);
+      // totalTax += taxable_chunk * this.TAX_BRACKET_PERCENTAGES[i-1];        
+      remaining -= taxable_chunk;
+      
     }
   }
 
