@@ -15,3 +15,11 @@
 #calculator label {
   font-weight: bold;
 }
+
+.gold-box{
+  background-color: #fffae1;
+  .card-header:first-child{
+    background-color: #e9ac00;
+    color: white;
+  }
+}
