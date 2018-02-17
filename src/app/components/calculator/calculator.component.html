@@ -111,14 +111,15 @@
       <div class="container">
         <div class="card-deck mb-3 text-center">
           <div class="card mb-3 box-shadow green-box">
-            <div class="card-header">
+            <div class="card-header green-card-header">
               <h4 class="my-0 font-weight-normal">S Corporation</h4>
             </div>
             <div class="card-body">
               <p>Estimated Taxes:</p>
-              <h1 class="card-title pricing-card-title">{{scorpTaxes.totalTaxes | currency}}<br><small class="text-muted">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{scorpTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-primary" (click)="incorporate()">Incorporate Now</button>
               <ul class="list-unstyled mt-3 mb-4">
+                <li>Up to 100 owners</li><br>
                 <li>Liability protection</li><br>
                 <li>State filing (and filing fee) required for creation</li><br>
                 <li>Ongoing state filings and fees</li><br>
@@ -133,9 +134,10 @@
             </div>
             <div class="card-body">
               <p>Estimated Taxes:</p>
-              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes | currency}}<br><small class="text-muted">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
+                <li>Single individual</li><br>
                 <li>NO Liability protection</li><br>
                 <li>Filing and set up not necessary</li><br>
                 <li>Filings tied to personal taxes</li><br>
@@ -150,9 +152,10 @@
             </div>
             <div class="card-body">
               <p>Estimated Taxes:</p>
-              <h1 class="card-title pricing-card-title">{{llcTaxes.totalTaxes | currency}}<br><small class="text-muted">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{llcTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
+                <li>Unlimited owners</li><br>
                 <li>Liability protection</li><br>
                 <li>State filing (and filing fee) required for creation</li><br>
                 <li>Ongoing state filings and fees</li><br>
@@ -167,9 +170,10 @@
             </div>
             <div class="card-body">
               <p>Estimated Taxes:</p>
-              <h1 class="card-title pricing-card-title">{{ccorpTaxes.totalTaxes | currency}}<br><small class="text-muted">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{ccorpTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Incorporate</button>
               <ul class="list-unstyled mt-3 mb-4">
+                <li>Unlimited owners</li><br>
                 <li>Liability protection</li><br>
                 <li>State filing (and filing fee) required for creation</li><br>
                 <li>Ongoing state filings and fees</li><br>
