@@ -1,5 +1,5 @@
 p {
-  font-family: 'Helvetica Neue';
+  font-family: 'Lato', sans-serif;
 }
 .container {
   padding: 0;
@@ -12,14 +12,16 @@ p {
   background-size: cover;
 }
 #hero-text {
-  color: white;
+  color: #fff;
   padding: 60px;
   padding-left: 100px;
-  font-family: 'Helvetica Neue';
-  width: 55%;
+  font-family: 'Lato', sans-serif;
+  width: 65%;
+  max-width: 650px;
 }
 #hero-text h1 {
   font-size: 4em;
+  font-weight: 700;
 }
 #hero-text .subtitle {
   font-size: 1.7em;
