@@ -16,10 +16,9 @@
   font-weight: bold;
 }
 
-.gold-box{
-  background-color: #fffae1;
-  .card-header:first-child{
-    background-color: #e9ac00;
-    color: white;
+.green-box{
+  background-color: #eafff4;
+  .card-header{
+    background-color: #c9ebd5;
   }
 }
