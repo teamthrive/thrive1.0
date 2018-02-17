@@ -11,6 +11,9 @@
     "e2e": "ng e2e",
     "postinstall": "ng build --aot -prod"
   },
+  "engines": {
+    "node": "9.5.0"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.5",
