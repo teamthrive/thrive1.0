@@ -20,7 +20,10 @@ export class CalculatorComponent implements OnInit {
       "scorpSalary": 0,
       "additionalTaxableIncome": 0,
       "estCompanyAssets": 0,
-      "specificedServiceBusiness": false
+      "specificedServiceBusiness": false,
+      "firstName": "",
+      "lastName": "",
+      "email": ""
     }
   }
 
