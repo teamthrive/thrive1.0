@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 
 import { AppComponent } from './app.component';
+import { CalculatorComponent } from './components/calculator/calculator.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IncorporationComponent } from "./components/incorporation/incorporation.component";
 import { HomeComponent } from './components/home/home.component';
@@ -14,6 +15,7 @@ import { FeaturesComponent } from './components/features/features.component';
 @NgModule({
   declarations: [
     AppComponent,
+    CalculatorComponent,
     HeaderComponent,
     IncorporationComponent,
     HomeComponent,

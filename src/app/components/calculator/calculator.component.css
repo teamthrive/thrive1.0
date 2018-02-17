@@ -1,0 +1,17 @@
+.hidden { display: none; }
+#calculator {
+	width: 50%;
+	margin: 40px;
+}
+.form-group {
+	margin-right: 15px;
+  margin-bottom: 0;
+}
+
+#calculator button {
+  margin-left: -5px;
+}
+
+#calculator label {
+  font-weight: bold;
+}

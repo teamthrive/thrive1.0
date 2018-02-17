@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   }
 
   calculateSavings() {
-  	this.router.navigate(["incorporate"]);
+  	this.router.navigate(["calculator"]);
   }
 
 }
