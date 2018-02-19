@@ -105,9 +105,9 @@
 <!-- Estimated Tax Savings -->
 <div class="container" [class.hidden]="!submittedFinancials">
   <br>
-    <div class="jumbotron">
-        <h1>We recommend that you incorporate into an S Corporation.</h1>
-        <h2 class="lead">You will save ${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}</h2>
+    <div class="jumbotron text-center">
+        <h1 class="display-2">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}</h1>
+        <h2 class="lead">Estimated tax savings. We recommend that you incorporate into an S Corporation.</h2><br>
         <button class="btn btn-lg btn-primary" (click)="incorporate()" role="button">Incorporate Now &raquo;</button>
       </div>
 
