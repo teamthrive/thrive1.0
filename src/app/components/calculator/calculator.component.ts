@@ -165,6 +165,8 @@ export class CalculatorComponent implements OnInit {
     0.37
   ]
 
+  PERCENTAGE_INCOME_AS_SALARY = 0.5;
+
   getSelfEmploymentTax(income) {
     let taxable_amt = income * 0.9235;
     let fica_ss_tax = 0.124 * taxable_amt;
@@ -200,7 +202,7 @@ export class CalculatorComponent implements OnInit {
 
   submitAnnualIncome() {
     this.myThrivePreferences.financials.annualIncome = parseInt(Number(12 * this.myThrivePreferences.financials.monthlyIncome).toFixed(2));
-    this.myThrivePreferences.financials.scorpSalary = 0.4 * this.myThrivePreferences.financials.annualIncome;
+    this.myThrivePreferences.financials.scorpSalary = this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
     return
   }
 
@@ -220,25 +222,25 @@ export class CalculatorComponent implements OnInit {
   calculateSPTaxes() {
     this.spTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - 0.5 * this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome));
     this.spTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome);
-    this.spTaxes.totalTaxes = parseFloat(Number(this.spTaxes.totalFederalTaxes + this.spTaxes.totalSelfEmploymentTaxes + this.spTaxes.totalStateIncomeTaxes + this.spTaxes.total199ADeductions).toFixed(2));
+    this.spTaxes.totalTaxes = Math.round(this.spTaxes.totalFederalTaxes + this.spTaxes.totalSelfEmploymentTaxes + this.spTaxes.totalStateIncomeTaxes + this.spTaxes.total199ADeductions);
   }
 
   calculateLLCTaxes() {
     this.llcTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome);
     this.llcTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome);
-    this.llcTaxes.totalTaxes = parseFloat(Number(this.llcTaxes.totalFederalTaxes + this.llcTaxes.totalSelfEmploymentTaxes + this.llcTaxes.totalStateIncomeTaxes + this.llcTaxes.total199ADeductions).toFixed(2));
+    this.llcTaxes.totalTaxes = Math.round(this.llcTaxes.totalFederalTaxes + this.llcTaxes.totalSelfEmploymentTaxes + this.llcTaxes.totalStateIncomeTaxes + this.llcTaxes.total199ADeductions);
   }
 
   calculateCCorpTaxes() {
     this.ccorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome);
     this.ccorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome);
-    this.ccorpTaxes.totalTaxes = parseFloat(Number(this.ccorpTaxes.totalFederalTaxes + this.ccorpTaxes.totalSelfEmploymentTaxes + this.ccorpTaxes.totalStateIncomeTaxes + this.ccorpTaxes.total199ADeductions).toFixed(2));
+    this.ccorpTaxes.totalTaxes = Math.round(this.ccorpTaxes.totalFederalTaxes + this.ccorpTaxes.totalSelfEmploymentTaxes + this.ccorpTaxes.totalStateIncomeTaxes + this.ccorpTaxes.total199ADeductions);
   }
 
   calculateSCorpTaxes() {
     this.scorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.scorpSalary);
     this.scorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax(this.myThrivePreferences.financials.scorpSalary);
-    this.scorpTaxes.totalTaxes = parseFloat(Number(this.scorpTaxes.totalFederalTaxes + this.scorpTaxes.totalSelfEmploymentTaxes + this.scorpTaxes.totalStateIncomeTaxes + this.scorpTaxes.total199ADeductions).toFixed(2));
+    this.scorpTaxes.totalTaxes = Math.round(this.scorpTaxes.totalFederalTaxes + this.scorpTaxes.totalSelfEmploymentTaxes + this.scorpTaxes.totalStateIncomeTaxes + this.scorpTaxes.total199ADeductions);
   }
 
   incorporate() {

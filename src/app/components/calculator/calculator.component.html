@@ -4,14 +4,14 @@
       <div class="form-group">
         <label for="firstName">First Name</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="firstName" aria-label="First name" [(ngModel)]="myThrivePreferences.financials.firstName">
+          <input type="text" class="form-control" name="firstName" aria-label="First name" [(ngModel)]="myThrivePreferences.financials.firstName" required>
         </div>
       </div>
 
       <div class="form-group">
         <label for="lastName">Last Name</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="firstName" aria-label="First name" [(ngModel)]="myThrivePreferences.financials.lastName">
+          <input type="text" class="form-control" name="firstName" aria-label="First name" [(ngModel)]="myThrivePreferences.financials.lastName" required>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="email">Email</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="email" aria-label="Email" [(ngModel)]="myThrivePreferences.financials.email">
+          <input type="text" class="form-control" name="email" aria-label="Email" [(ngModel)]="myThrivePreferences.financials.email" required>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div class="form-group">
         <label for="state">Where is your business located?</label>
         <div class="input-group mb-3">
-          <select name="state" [(ngModel)]="myThrivePreferences.financials.state">
+          <select name="state" [(ngModel)]="myThrivePreferences.financials.state" required>
             <option *ngFor="let state of STATES" value={{state}}>
               {{state}}
             </option>
@@ -42,7 +42,7 @@
       <div class="form-group">
         <label for="state">What type of work do you do?</label>
         <div class="input-group mb-3">
-          <select name="workType" [(ngModel)]="myThrivePreferences.financials.workType">
+          <select name="workType" [(ngModel)]="myThrivePreferences.financials.workType" required>
             <option *ngFor="let occupation of OCCUPATIONS" value={{occupation}}>
               {{occupation}}
             </option>
@@ -58,13 +58,13 @@
           <div class="input-group-prepend">
             <span class="input-group-text">$</span>
           </div>
-          <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.monthlyIncome">
+          <input type="text" class="form-control" name="income" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.monthlyIncome" required>
         </div>
       </div>
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter" (click)="submitAnnualIncome()">
+    <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter" (click)="submitAnnualIncome()">
       Calculate Potential Savings
     </button>
 
@@ -92,7 +92,7 @@
         </div>
         <div class="modal-footer">
           <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitFinancialInformation()">Confirm</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="submitFinancialInformation()">Confirm</button>
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">{{scorpTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-primary" (click)="incorporate()">Incorporate Now</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Up to 100 owners</li><br>
@@ -135,7 +135,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - spTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Single individual</li><br>
@@ -153,7 +153,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">{{llcTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - llcTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited owners</li><br>
@@ -171,8 +171,8 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">{{ccorpTaxes.totalTaxes | currency}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Incorporate</button>
+              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - ccorpTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited owners</li><br>
                 <li>Liability protection</li><br>
