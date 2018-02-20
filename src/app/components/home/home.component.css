@@ -41,11 +41,12 @@
   border-color: rgb(55, 186, 138);
 }
 .value-prop {
-  margin: 40px;
+  padding: 0px 0 60px 0;
   text-align: center;
   font-size: 1.6em;
-  color: rgb(103, 103, 103);
+  color: #676767;
   font-style: italic;
+  border-bottom: 1px solid #eaeaea;
 }
 .highlighted-number {
   background-color: rgb(229, 255, 246);
