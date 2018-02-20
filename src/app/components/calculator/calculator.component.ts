@@ -169,21 +169,23 @@ export class CalculatorComponent implements OnInit {
 
   getSelfEmploymentTax(income) {
     let taxable_amt = income * 0.9235;
-    let fica_ss_tax = 0.124 * taxable_amt;
-    let fica_mc_tax = 0.029 * taxable_amt;
+    let net_se_income = 0.8 * taxable_amt;
+
+    let fica_ss_employee_tax = Math.min(7960.8, 0.062 * net_se_income)
+    let fica_ss_employer_tax = Math.min(7960.8, 0.062 * net_se_income)
+    let fica_mc_tax = 0.029 * net_se_income;
     let fica_mc_tax_add = 0;
     if(income > 200000) {
-      fica_mc_tax_add = 0.009 * taxable_amt;
+      fica_mc_tax_add = 0.009 * net_se_income;
     }
-    let total_se_tax = fica_ss_tax + fica_mc_tax + fica_mc_tax_add;
-    print("Self Employment tax: " + total_se_tax);
+    let total_se_tax = fica_ss_employee_tax + fica_ss_employer_tax + fica_mc_tax + fica_mc_tax_add;
+    console.log("Self Employment tax: " + total_se_tax);
     return total_se_tax;
   }
 
   getFederalIncomeTax(income){
     let taxable_amt = income;
     let totalTax = 0;
-    // console.log(taxable_amt);
     
     var i;
     for (i = 1; i < this.TAX_BRACKETS.length; i++) { 
@@ -226,6 +228,8 @@ export class CalculatorComponent implements OnInit {
     this.spTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - 0.5 * this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome));
     this.spTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax(this.myThrivePreferences.financials.annualIncome);
     this.spTaxes.totalTaxes = Math.round(this.spTaxes.totalFederalTaxes + this.spTaxes.totalSelfEmploymentTaxes + this.spTaxes.totalStateIncomeTaxes + this.spTaxes.total199ADeductions);
+    console.log(this.spTaxes.totalTaxes);
+    
   }
 
   calculateLLCTaxes() {
