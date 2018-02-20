@@ -37,12 +37,6 @@
 <div [class.hidden]="selectedSection !== 2" class="container" style="padding: 5% 20%;">
   <h2>Which type of business do you want to incorporate as?</h2>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="llc" [(ngModel)]="myThrivePreferences.typeCorp">
-    <label class="form-check-label" for="exampleRadios1">
-      Limited Liability Corporation (LLC)
-    </label>
-  </div>
-  <div class="form-check">
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="scorp" [(ngModel)]="myThrivePreferences.typeCorp">
     <label class="form-check-label" for="exampleRadios2">
       S-Corporation
@@ -54,19 +48,30 @@
       C-Corporation
     </label>
   </div>
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="llc" [(ngModel)]="myThrivePreferences.typeCorp">
+      <label class="form-check-label" for="exampleRadios1">
+        Limited Liability Corporation (LLC)
+      </label>
+    </div>
 </div>   
 
 <!-- Section 3 -->
 <div [class.hidden]="selectedSection !== 3" class="container" style="padding: 5% 20%;">
   <!-- S-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
-    <h2>Let's set up your S-Corporation</h2>
+    <h2>Let's set up your S-Corporation.</h2>
   </div>
 
   <!-- C-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
-    <h2>Let's set up your C-Corporation</h2>
+    <h2>Let's set up your C-Corporation.</h2>
   </div>
+
+  <!-- LLC -->
+  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
+      <h2>Let's set up your LLC.</h2>
+    </div>
 
   <form>
     <div class="form-row">
@@ -147,46 +152,24 @@
 
     </div>
   </form>
-  
-  <button type="button" class="btn btn-primary btn-lg" (click)="calculateSPTaxes()">Calculate Potential Savings</button>
-
 </div>
 
-<!-- Section 4 -->
+
+<!-- Section 5 -->
 <div [class.hidden]="selectedSection !== 4" class="container" style="padding: 5% 20%;">
   <!-- LLC -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
-    <h2>Your Estimated Taxes for incorporating as an LLC is:</h2>
+    <h2>Let's set up your LLC.</h2>
   </div>
 
   <!-- S-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
-    <h2>Your Estimated Taxes for incorporating as an S-Corporation is:</h2>
+    <h2>Let's set up your S-Corporation.</h2>
   </div>
 
   <!-- C-Corp -->
   <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
-    <h2>Your Estimated Taxes for incorporating as a C-Corporation is:</h2>
-  </div>
-
-  
-</div>
-
-<!-- Section 5 -->
-<div [class.hidden]="selectedSection !== 5" class="container" style="padding: 5% 20%;">
-  <!-- LLC -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
-    <h2>So you want to incorporate as an LLC!</h2>
-  </div>
-
-  <!-- S-Corp -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
-    <h2>So you want to incorporate as an S-Corporation!</h2>
-  </div>
-
-  <!-- C-Corp -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
-    <h2>So you want to incorporate as a C-Corporation!</h2>
+    <h2>Let's set up your C-Corporation.</h2>
   </div>
   
   <form>
@@ -246,7 +229,7 @@
 </div>
 
 <!-- Section 6 -->
-<div [class.hidden]="selectedSection !== 6" class="container" style="padding: 5% 20%;">
+<div [class.hidden]="selectedSection !== 5" class="container" style="padding: 5% 20%;">
   <h2>Are you ready to submit your incorporation application?</h2><br>
   <h3>Review your company information:</h3>
   <div class="container">
@@ -269,7 +252,7 @@
 </div>
 
 <!-- Section 7 -->
-<div [class.hidden]="selectedSection !== 7" class="container" style="padding: 5% 20%;">
+<div [class.hidden]="selectedSection !== 6" class="container" style="padding: 5% 20%;">
   <h1 style="text-align:center">Congratulations</h1> 
   <h2 style="text-align:center">You have successfully applied to incorporate your company!</h2>
 </div>
@@ -277,6 +260,6 @@
 <!-- Previous | Next -->
 <br>
 <div [class.hidden]="selectedSection > totalNumPages" class="container" style="padding-left: 20%;">
-  <button type="button" class="btn btn-secondary btn-lg" [disabled]="selectedSection === 1" (click)="prevClicked()">Previous</button>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="prevClicked()">Previous</button>
   <button type="button" class="btn btn-primary btn-lg" [disabled]="myThrivePreferences.typeCorp === null && selectedSection === 2" (click)="nextClicked()">Next</button>
 </div>

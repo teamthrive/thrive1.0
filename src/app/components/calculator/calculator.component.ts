@@ -33,7 +33,8 @@ export class CalculatorComponent implements OnInit {
       "lastName": "",
       "email": "",
       "state": "CA",
-      "workType": "Real Estate Agent"
+      "workType": "Real Estate Agent",
+      "scheduleEIncome": 0
     }
   }
 
@@ -73,7 +74,11 @@ export class CalculatorComponent implements OnInit {
     "totalTaxes": 0
   }
 
+  /* THRIVE PRICINGS */
+  THRIVE_ANNUAL_COST = 240;
+  THRIVE_ANNUAL_CPA_COST = 300;
 
+  /* Constants for tax calculations */
   STATES = [
     "AL",
     "AK",
@@ -209,52 +214,6 @@ export class CalculatorComponent implements OnInit {
   WAGE_LIMIT = 7000;
   STATE_DISABILITY_INSURANCE = 114967;
 
-  submitAnnualIncome() {
-    this.myThrivePreferences.financials.annualIncome = parseInt(Number(12 * this.myThrivePreferences.financials.monthlyIncome).toFixed(2));
-    this.myThrivePreferences.financials.scorpSalary = this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
-    return
-  }
-
-  submitFinancialInformation() {
-    this.myThrivePreferences.financials.monthlyIncome = parseFloat(Number(this.myThrivePreferences.financials.annualIncome / 12.0).toFixed(2));
-    // console.log(this.myThrivePreferences.financials);
-
-    this.calculateSCorpTaxes();
-    this.calculateSPTaxes();
-    this.calculateCCorpTaxes();
-    // this.calculateLLCTaxes();
-
-    this.submittedFinancials = true;
-  }
-
-  getSelfEmploymentTax_SP(income) {
-    let taxable_amt = income * this.PERCENTAGE_SE_INCOME_SUBJECT_TO_TAX;
-    let net_se_income = (1 - this.PERCENTAGE_INCOME_AS_BUSINESS_EXPENSE) * taxable_amt;
-
-    let fica_ss_employee_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * net_se_income)
-    let fica_ss_employer_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * net_se_income)
-    let fica_mc_tax = this.FICA_MEDICARE_RATE * net_se_income;
-    let fica_mc_tax_add = 0;
-    if(income > 200000) {
-      fica_mc_tax_add = this.FICA_MEDICARE_RATE_ADDITIONAL * net_se_income;
-    }
-    let total_se_tax = fica_ss_employee_tax + fica_ss_employer_tax + fica_mc_tax + fica_mc_tax_add;
-    console.log("Self Employment Tax: " + total_se_tax);
-    return total_se_tax;
-  }
-
-  getSelfEmploymentTax_SCorp(income) {
-    let fica_ss_employee_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * income)
-    let fica_ss_employer_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * income)
-    let fica_mc_tax = this.FICA_MEDICARE_RATE * income;
-    let fica_mc_tax_add = 0;
-    if(income > 200000) {
-      fica_mc_tax_add = this.FICA_MEDICARE_RATE_ADDITIONAL * income;
-    }
-    let total_se_tax = fica_ss_employee_tax + fica_ss_employer_tax + fica_mc_tax + fica_mc_tax_add;
-    console.log("Scorp Self Employment Tax: " + total_se_tax);
-    return total_se_tax;
-  }
 
   getFederalIncomeTax(taxable_amt){
     let totalTax = 0;
@@ -270,11 +229,29 @@ export class CalculatorComponent implements OnInit {
         taxable_amt -= tax_chunk;
       }
     }
-    console.log('Total Federal Tax: ' + totalTax);
     return totalTax;
   }
 
-  getFranchiseTax(taxable_amt) {
+  /**************************************************/
+  /************** Sole Proprietorship /**************/
+  /**************************************************/
+
+  getSelfEmploymentTax_SP(income) {
+    let taxable_amt = income * this.PERCENTAGE_SE_INCOME_SUBJECT_TO_TAX;
+    let net_se_income = (1 - this.PERCENTAGE_INCOME_AS_BUSINESS_EXPENSE) * taxable_amt;
+
+    let fica_ss_employee_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * net_se_income)
+    let fica_ss_employer_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * net_se_income)
+    let fica_mc_tax = this.FICA_MEDICARE_RATE * net_se_income;
+    let fica_mc_tax_add = 0;
+    if(income > 200000) {
+      fica_mc_tax_add = this.FICA_MEDICARE_RATE_ADDITIONAL * (net_se_income - 200000);
+    }
+    let total_se_tax = fica_ss_employee_tax + fica_ss_employer_tax + fica_mc_tax + fica_mc_tax_add;
+    return total_se_tax;
+  }
+
+  getStateIncomeTax(taxable_amt) {
     let totalTax = 0;
     var i;
     for (i = 1; i < this.FRANCHISE_TAX_BRACKETS.length; i++) { 
@@ -288,25 +265,23 @@ export class CalculatorComponent implements OnInit {
         taxable_amt -= tax_chunk;
       }
     }
-    console.log('Total Franchise Tax: ' + totalTax);
     return totalTax;
   }
 
   getStateUnemployementTaxes_SP(taxable_amt) {
-    console.log("Calculating SP Unemployment Taxes");
-
     let state_unemployment_insurance = Math.min(0.034 * this.WAGE_LIMIT, 0.034 * taxable_amt);
     let federal_unemployment = Math.min(0.006 * this.WAGE_LIMIT, 0.006 * taxable_amt);
     let state_disability_insurance = Math.min(0.01 * this.STATE_DISABILITY_INSURANCE, 0.01 * taxable_amt);
 
     let total_state_unemployment_taxs = state_unemployment_insurance + federal_unemployment + state_disability_insurance;
-    console.log(total_state_unemployment_taxs);
     return total_state_unemployment_taxs;
   }
 
-  get199ABenefit(income) {
-    let taxable_amt = this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes;
-    let margin_rate = 0;
+  get199ABenefit_SP(income) {
+    let taxable_amt = this.myThrivePreferences.financials.annualIncome - 
+        this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes;
+    
+        let margin_rate = 0;
     var i;
     for(i = 0; i < this.FEDERAL_TAX_BRACKETS.length - 1; i++) {
       if(taxable_amt > this.FEDERAL_TAX_BRACKETS[i]) {
@@ -317,42 +292,149 @@ export class CalculatorComponent implements OnInit {
     let deduction = 0.2 * income;
     return deduction * margin_rate;  
   }
+
   
-  calculateSCorpTaxes() {
-    console.log("Calculating S-Corp Taxes");
-    // console.log(this.myThrivePreferences.financials.scorpSalary);
-    
-    this.scorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
-    this.scorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.scorpTaxes.totalStateIncomeTaxes = this.getFranchiseTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.scorpTaxes.totalStateUnemploymentTaxes = this.getStateUnemployementTaxes_SP(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.scorpTaxes.total199ABenefit = this.get199ABenefit(this.myThrivePreferences.financials.annualIncome);
-    // Total tax liability
-    this.scorpTaxes.totalTaxes = this.scorpTaxes.totalFederalTaxes + 
-                              this.scorpTaxes.totalSelfEmploymentTaxes + 
-                              this.scorpTaxes.totalStateIncomeTaxes + 
-                              this.scorpTaxes.totalStateUnemploymentTaxes - 8000 -
-                              this.scorpTaxes.total199ABenefit;
-    console.log(this.scorpTaxes.totalTaxes);
-    
+  /**************************************************/
+  /***************** S-Corporation /*****************/
+  /**************************************************/
+
+  getSelfEmploymentTax_SCorp(income) {
+    let salary = this.myThrivePreferences.financials.scorpSalary
+
+    let fica_ss_employee_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * salary)
+    let fica_ss_employer_tax = Math.min(7960.8, this.FICA_SOCIAL_SECURITY_RATE * salary)
+    let fica_mc_tax = this.FICA_MEDICARE_RATE * salary;
+    let fica_mc_tax_add = 0;
+    if(salary > 200000) {
+      fica_mc_tax_add = this.FICA_MEDICARE_RATE_ADDITIONAL * (salary - 200000);
+    }
+    let total_se_tax = fica_ss_employee_tax + fica_ss_employer_tax + fica_mc_tax + fica_mc_tax_add;
+    return total_se_tax;
   }
 
+  getStateUnemployementTaxes_SCorp(taxable_amt) {
+    let state_unemployment_insurance = Math.min(0.034 * this.WAGE_LIMIT, 0.034 * taxable_amt);
+    let federal_unemployment = Math.min(0.006 * this.WAGE_LIMIT, 0.006 * taxable_amt);
+    let state_disability_insurance = Math.min(0.01 * this.STATE_DISABILITY_INSURANCE, 0.01 * taxable_amt);
 
+    let first_bracket_tax_chunk = Math.min(taxable_amt, 16030);
+    let state_employee_training_tax = Math.min(0.001 * this.WAGE_LIMIT, 0.001 * first_bracket_tax_chunk);
+
+    let total_state_unemployment_taxs = state_unemployment_insurance + federal_unemployment + + state_employee_training_tax + state_disability_insurance;
+    return total_state_unemployment_taxs;
+  }
+
+  get199ABenefit_SCorp(income) {
+    let taxable_amt = this.myThrivePreferences.financials.scheduleEIncome + this.myThrivePreferences.financials.scorpSalary;
+    let margin_rate = 0;
+    var i;
+    for(i = 0; i < this.FEDERAL_TAX_BRACKETS.length - 1; i++) {
+      if(taxable_amt > this.FEDERAL_TAX_BRACKETS[i]) {
+        margin_rate = this.FEDERAL_TAX_RATES[i]
+      }
+    }
+
+    let deduction = 0.2 * this.myThrivePreferences.financials.scheduleEIncome;
+    return deduction * margin_rate;  
+  }
+  
+  
+  /**************************************************/
+  /************* Calculate Bottom Lines *************/
+  /**************************************************/
   calculateSPTaxes() {
     console.log("Calculating SP Taxes");
     this.spTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
-    this.spTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.spTaxes.totalStateIncomeTaxes = this.getFranchiseTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.spTaxes.totalStateUnemploymentTaxes = this.getStateUnemployementTaxes_SP(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.spTaxes.total199ABenefit = this.get199ABenefit(this.myThrivePreferences.financials.annualIncome);
+    
+    this.spTaxes.totalFederalTaxes = this.getFederalIncomeTax(
+        this.myThrivePreferences.financials.annualIncome - 
+        this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+    
+    this.spTaxes.totalStateIncomeTaxes = this.getStateIncomeTax(
+        this.myThrivePreferences.financials.annualIncome - 
+        this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+
+    this.spTaxes.totalStateUnemploymentTaxes = this.getStateUnemployementTaxes_SP(
+        this.myThrivePreferences.financials.annualIncome - 
+        this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+    
+    this.spTaxes.total199ABenefit = this.get199ABenefit_SP(this.myThrivePreferences.financials.annualIncome);
+    
     // Total tax liability
     this.spTaxes.totalTaxes = this.spTaxes.totalFederalTaxes + 
                               this.spTaxes.totalSelfEmploymentTaxes + 
                               this.spTaxes.totalStateIncomeTaxes + 
                               this.spTaxes.totalStateUnemploymentTaxes -
                               this.spTaxes.total199ABenefit;
-    console.log(this.spTaxes.totalTaxes);
+
+    console.log("Total SP tax liability: " + this.spTaxes.totalTaxes);
+  }
+
+  calculateSCorpTaxes() {
+    console.log("Calculating S-Corp Taxes");
     
+    this.scorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SCorp(this.myThrivePreferences.financials.annualIncome);
+
+    this.myThrivePreferences.financials.scheduleEIncome = this.myThrivePreferences.financials.annualIncome - 
+        this.myThrivePreferences.financials.scorpSalary -
+        0.5 * this.scorpTaxes.totalSelfEmploymentTaxes;
+
+    this.scorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(
+        this.myThrivePreferences.financials.scheduleEIncome + 
+        this.myThrivePreferences.financials.scorpSalary);
+    console.log("Schedule E: " + this.myThrivePreferences.financials.scheduleEIncome);
+    console.log("Salary: "+this.myThrivePreferences.financials.scorpSalary);
+    
+    
+    
+    let franchise_tax = Math.max(800, 0.015 * this.myThrivePreferences.financials.scheduleEIncome);    
+  
+    let state_income_tax = this.getStateIncomeTax(
+        this.myThrivePreferences.financials.annualIncome - 
+        this.PERCENTAGE_SE_TAX_DEDUCTION * this.scorpTaxes.totalSelfEmploymentTaxes);
+    
+    let state_unemp_tax = this.getStateUnemployementTaxes_SCorp(
+        this.myThrivePreferences.financials.scheduleEIncome + this.myThrivePreferences.financials.scorpSalary);
+
+    this.scorpTaxes.totalStateIncomeTaxes = state_income_tax + franchise_tax + state_unemp_tax;
+    this.scorpTaxes.totalStateUnemploymentTaxes = state_unemp_tax;
+    
+    this.scorpTaxes.total199ABenefit = this.get199ABenefit_SCorp(this.myThrivePreferences.financials.annualIncome);
+        
+
+    console.log('fed: '+this.scorpTaxes.totalFederalTaxes);
+    console.log('se: '+this.scorpTaxes.totalSelfEmploymentTaxes);
+    console.log('state: '+this.scorpTaxes.totalStateIncomeTaxes);
+    console.log('199a: '+this.scorpTaxes.total199ABenefit);
+    // Total tax liability
+    this.scorpTaxes.totalTaxes = this.scorpTaxes.totalFederalTaxes + 
+                                 this.scorpTaxes.totalSelfEmploymentTaxes + 
+                                 this.scorpTaxes.totalStateIncomeTaxes - 
+                                 this.scorpTaxes.total199ABenefit;
+
+    console.log("Total S Corp tax liability: " + this.scorpTaxes.totalTaxes);
+  }
+
+  calculateCCorpTaxes() {
+    this.ccorpTaxes.totalTaxes = this.scorpTaxes.totalTaxes;
+    console.log("Calculating C-Corp Taxes");
+    
+    this.ccorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
+    this.ccorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+    this.ccorpTaxes.totalStateIncomeTaxes = this.getStateIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+    this.ccorpTaxes.totalStateUnemploymentTaxes = this.getStateUnemployementTaxes_SP(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
+    this.ccorpTaxes.total199ABenefit = this.get199ABenefit_SP(this.myThrivePreferences.financials.annualIncome);
+    // Total tax liability
+    this.ccorpTaxes.totalTaxes = this.ccorpTaxes.totalFederalTaxes + 
+                              this.ccorpTaxes.totalSelfEmploymentTaxes + 
+                              this.ccorpTaxes.totalStateIncomeTaxes + 
+                              this.ccorpTaxes.totalStateUnemploymentTaxes - 313 -
+                              this.ccorpTaxes.total199ABenefit;
+    console.log(this.ccorpTaxes.totalTaxes);
+  }
+
+  incorporate() {
+    this.router.navigate(['incorporate']);
   }
 
   // calculateLLCTaxes() {
@@ -362,25 +444,30 @@ export class CalculatorComponent implements OnInit {
   //   this.llcTaxes.totalTaxes = this.llcTaxes.totalFederalTaxes + this.llcTaxes.totalSelfEmploymentTaxes + this.llcTaxes.totalStateIncomeTaxes + this.llcTaxes.total199ABenefit;
   // }
 
-  calculateCCorpTaxes() {
-    console.log("Calculating C-Corp Taxes");
-    
-    this.ccorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
-    this.ccorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.ccorpTaxes.totalStateIncomeTaxes = this.getFranchiseTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.ccorpTaxes.totalStateUnemploymentTaxes = this.getStateUnemployementTaxes_SP(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
-    this.ccorpTaxes.total199ABenefit = this.get199ABenefit(this.myThrivePreferences.financials.annualIncome);
-    // Total tax liability
-    this.ccorpTaxes.totalTaxes = this.ccorpTaxes.totalFederalTaxes + 
-                              this.ccorpTaxes.totalSelfEmploymentTaxes + 
-                              this.ccorpTaxes.totalStateIncomeTaxes + 
-                              this.ccorpTaxes.totalStateUnemploymentTaxes - 3123 -
-                              this.ccorpTaxes.total199ABenefit;
-    console.log(this.ccorpTaxes.totalTaxes);
+  /***************************************************/
+  /* Submit button functions to record income levels */
+  /***************************************************/
+  submitAnnualIncome() {
+    this.myThrivePreferences.financials.annualIncome = parseInt(Number(
+      12 * this.myThrivePreferences.financials.monthlyIncome).toFixed(2
+    ));
+    this.myThrivePreferences.financials.scorpSalary = 
+      this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
+    return
   }
 
-  incorporate() {
-    this.router.navigate(['incorporate']);
+  submitFinancialInformation() {
+    this.myThrivePreferences.financials.monthlyIncome = parseFloat(Number(this.myThrivePreferences.financials.annualIncome / 12.0).toFixed(2));
+    this.submitAnnualIncome();
+    // console.log(this.myThrivePreferences.financials);
+
+    this.calculateSPTaxes();
+    this.calculateSCorpTaxes();
+    this.calculateCCorpTaxes();
+    // this.calculateLLCTaxes();
+
+    this.submittedFinancials = true;
   }
+
 
 }
