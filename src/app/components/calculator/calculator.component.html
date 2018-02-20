@@ -108,7 +108,7 @@
     <div class="jumbotron text-center">
         <h1 class="display-2">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}</h1>
         <h2 class="lead">Estimated tax savings. We recommend that you incorporate into an S Corporation.</h2><br>
-        <button class="btn btn-lg btn-primary" (click)="incorporate()" role="button">Incorporate Now &raquo;</button>
+        <button class="btn btn-lg btn-primary" routerLink="/incorporate" role="button">Incorporate Now &raquo;</button>
       </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -125,7 +125,7 @@
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
               <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
-              <button type="button" class="btn btn-lg btn-block btn-primary" (click)="incorporate()">Incorporate Now</button>
+              <button type="button" class="btn btn-lg btn-block btn-primary" routerLink="/incorporate">Incorporate Now</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Up to 100 owners</li><br>
                 <li>Liability protection</li><br>

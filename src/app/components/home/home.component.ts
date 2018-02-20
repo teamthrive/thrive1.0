@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  calculateSavings() {
-  	this.router.navigate(["calculator"]);
-  }
+  // calculateSavings() {
+  // 	this.router.navigate(["calculator"]);
+  // }
 
 }
