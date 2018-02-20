@@ -106,7 +106,7 @@
 <div class="container" [class.hidden]="!submittedFinancials">
   <br>
     <div class="jumbotron text-center">
-        <h1 class="display-2">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}</h1>
+        <h1 class="display-2">{{spTaxes.totalTaxes - scorpTaxes.totalTaxes | currency:'USD':'symbol-narrow':'0.0-0'}}</h1>
         <h2 class="lead">Estimated tax savings. We recommend that you incorporate into an S Corporation.</h2><br>
         <button class="btn btn-lg btn-primary" routerLink="/incorporate" role="button">Incorporate Now &raquo;</button>
       </div>
@@ -124,7 +124,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - scorpTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes - scorpTaxes.totalTaxes | currency:'USD':'symbol-narrow':'0.0-0'}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-primary" routerLink="/incorporate">Incorporate Now</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Up to 100 owners</li><br>
@@ -142,7 +142,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - spTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes - spTaxes.totalTaxes | currency:'USD':'symbol-narrow':'0.0-0'}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Single individual</li><br>
@@ -178,7 +178,7 @@
             </div>
             <div class="card-body">
               <p style="font-size: 85%;">Savings vs. Sole Proprietorship:</p>
-              <h1 class="card-title pricing-card-title">${{spTaxes.totalTaxes - ccorpTaxes.totalTaxes}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
+              <h1 class="card-title pricing-card-title">{{spTaxes.totalTaxes - ccorpTaxes.totalTaxes | currency:'USD':'symbol-narrow':'0.0-0'}}<small class="text-muted" style="font-size: 50%; line-height: 130%; display: block;">per yr</small></h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Learn More</button>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unlimited owners</li><br>
