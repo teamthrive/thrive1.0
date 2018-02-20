@@ -63,6 +63,30 @@ body {
   color: #5a5a5a;
 }
 
+ul.dash {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+}
+ul.dash > li:before {
+    display: inline-block;
+    content: "-";
+    width: 1em;
+    margin-left: -1em;
+}
+
+h2.spaced {
+  margin: 20px;
+}
+
+.quotation-mark {
+  font-size: 15em;
+}
+
+.big-number {
+  font-size: 5em;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -75,6 +99,7 @@ body {
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
+  max-width: 40%;
 }
 
 /* Declare heights because of positioning of img element */
