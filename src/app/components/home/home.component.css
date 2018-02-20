@@ -102,14 +102,19 @@ h2.spaced {
   max-width: 40%;
 }
 
+.carousel-caption h1{
+  font-weight: 700;
+}
+
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 27rem;
+  height: 23rem;
   background-color: #777;
 }
 .carousel-item {
   background-image: url('/assets/images/hero.png');
   background-position: bottom left;
+  background-size: cover;
 }
 
 
