@@ -337,7 +337,6 @@ export class CalculatorComponent implements OnInit {
     console.log("1099a deduction: " + deduction);
     // console.log("1099a benefit: " + deduction * margin_rate);
     
-    
     return deduction * margin_rate;  
   }
 
@@ -393,25 +392,25 @@ export class CalculatorComponent implements OnInit {
 
     if(taxable_amt < 157500) {
       deduction = Math.max(0, qbi_20);
-      console.log("1: " + deduction);
+      // console.log("1: " + deduction);
       
     } else if(this.myThrivePreferences.financials.specificedServiceBusiness) {
       if(qbi_20 < wage_temp) {
         deduction = Math.max(0, qbi_20 * (1 - phase_out));
-        console.log("2: " + deduction);
+        // console.log("2: " + deduction);
 
       } else {
         deduction = Math.max(0, (1 - phase_out) * qbi_20 - phase_out * (qbi_20 - wage_temp));
-        console.log("3: " + deduction);
+        // console.log("3: " + deduction);
 
       }
     } else if(qbi_20 < wage_temp) {
       deduction = Math.max(0, qbi_20);
-      console.log("4: " + deduction);
+      // console.log("4: " + deduction);
 
     } else {
       deduction = Math.max(0, qbi_20 - phase_out * (qbi_20 - wage_temp));
-      console.log("5: " + deduction);
+      // console.log("5: " + deduction);
     }
 
     console.log("1099a deduction: " + deduction);
