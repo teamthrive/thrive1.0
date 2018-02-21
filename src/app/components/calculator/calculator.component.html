@@ -106,6 +106,7 @@
 
 <!-- Estimated Tax Savings -->
 <div class="container" [class.hidden]="!submittedFinancials">
+  
   <br>
     <div class="jumbotron text-center">
         <h1 class="display-2" style="font-size: 700;">{{spTaxes.totalTaxes - scorpTaxes.totalTaxes | currency:'USD':'symbol-narrow':'0.0-0'}}</h1>
