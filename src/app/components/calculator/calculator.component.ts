@@ -202,7 +202,7 @@ export class CalculatorComponent implements OnInit {
     0.133
   ]
 
-  PERCENTAGE_INCOME_AS_SALARY = 0.4;
+  PERCENTAGE_INCOME_AS_SALARY = 0.33;
   PERCENTAGE_INCOME_AS_BUSINESS_EXPENSE = 0.2;
   PERCENTAGE_SE_INCOME_SUBJECT_TO_TAX = 0.9235;
   FICA_SOCIAL_SECURITY_RATE = 0.062;
@@ -213,7 +213,16 @@ export class CalculatorComponent implements OnInit {
   //State Tax Constants
   WAGE_LIMIT = 7000;
   STATE_DISABILITY_INSURANCE = 114967;
-
+  
+  // myVar;
+  // myFunction() {
+  //     this.myVar = setTimeout(this.showPage, 3000);
+  // }
+  
+  // showPage() {
+  //   document.getElementById("loader").style.display = "none";
+  //   document.getElementById("myDiv").style.display = "block";
+  // }
 
   getFederalIncomeTax(taxable_amt){
     let totalTax = 0;
@@ -384,8 +393,6 @@ export class CalculatorComponent implements OnInit {
         this.myThrivePreferences.financials.scorpSalary);
     console.log("Schedule E: " + this.myThrivePreferences.financials.scheduleEIncome);
     console.log("Salary: "+this.myThrivePreferences.financials.scorpSalary);
-    
-    
     
     let franchise_tax = Math.max(800, 0.015 * this.myThrivePreferences.financials.scheduleEIncome);    
   
