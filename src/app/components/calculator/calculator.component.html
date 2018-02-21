@@ -1,4 +1,4 @@
-<div class="container" [class.hidden]="submittedFinancials">
+<div class="container" [class.hidden]="submittedFinancials || calculating">
   <form id="calculator">
     <h2 style="margin-left: -5px;">Calculate your tax savings.</h2>
     <div class="form-row">
@@ -102,7 +102,11 @@
 </div>
 
 
-
+<!-- Estimated Tax Savings -->
+<div class="container" [class.hidden]="!calculating" style="height:50rem;text-align:center">
+  <h2 style="margin:5rem">Calculating your tax savings</h2>
+  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif">
+</div>
 
 <!-- Estimated Tax Savings -->
 <div class="container" [class.hidden]="!submittedFinancials">

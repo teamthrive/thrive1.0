@@ -19,6 +19,10 @@ export class CalculatorComponent implements OnInit {
 
   submittedFinancials = false;
 
+  calculating = false;
+
+  interval;
+
   myThrivePreferences = {
     "financials": {
       "annualIncome": 0,
@@ -473,8 +477,13 @@ export class CalculatorComponent implements OnInit {
     this.calculateCCorpTaxes();
     // this.calculateLLCTaxes();
 
-    this.submittedFinancials = true;
-  }
+    this.calculating = true;
 
+    this.interval = setInterval( () => {
+      this.calculating = false;
+      this.submittedFinancials = true;
+      clearInterval(this.interval);
+    }, 3000);
+  }
 
 }
