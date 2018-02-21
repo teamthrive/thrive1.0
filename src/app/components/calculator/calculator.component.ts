@@ -479,6 +479,8 @@ export class CalculatorComponent implements OnInit {
 
     this.calculating = true;
 
+    window.scrollTo(0, 0);
+
     this.interval = setInterval( () => {
       this.calculating = false;
       this.submittedFinancials = true;
