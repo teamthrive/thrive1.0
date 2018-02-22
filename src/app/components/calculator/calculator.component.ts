@@ -416,9 +416,6 @@ export class CalculatorComponent implements OnInit {
     console.log("1099a deduction: " + deduction);
     console.log("1099a benefit: " + deduction * margin_rate);
     
-    
-    return deduction * margin_rate;  
-    
     deduction = 0.2 * this.scorpTaxes.scheduleEIncome;
     return deduction * margin_rate;  
   }
