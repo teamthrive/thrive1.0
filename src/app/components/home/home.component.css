@@ -105,6 +105,7 @@ h2.spaced {
 
 .carousel-caption h1{
   font-weight: 700;
+  font-size: 3rem;
 }
 
 /* Declare heights because of positioning of img element */
@@ -112,8 +113,20 @@ h2.spaced {
   height: 23rem;
   background-color: #777;
 }
-.carousel-item {
-  background-image: url('/assets/images/hero.png');
+.carousel-item-1 {
+  background-image: url('/assets/images/hero-1.png');
+  background-position: bottom left;
+  background-size: cover;
+}
+
+.carousel-item-2 {
+  background-image: url('/assets/images/hero-2.png');
+  background-position: bottom left;
+  background-size: cover;
+}
+
+.carousel-item-3 {
+  background-image: url('/assets/images/hero-3.png');
   background-position: bottom left;
   background-size: cover;
 }
