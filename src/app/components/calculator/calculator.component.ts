@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FinancialService } from "../../services/financial.service";
+import { MyAngularMaterialModulesModule } from "../../my-angular-material-modules/my-angular-material-modules.module";
 
 @Component({
   selector: 'app-incorporation',
@@ -18,14 +19,12 @@ export class CalculatorComponent implements OnInit {
   }
 
   submittedFinancials = false;
-
   calculating = false;
-
   interval;
 
   myThrivePreferences = {
     "financials": {
-      "annualIncome": 0,
+      "annualIncome": 120000,
       "monthlyIncome": 10000,
       "annualExpenses": 0,
       "filingStatus": "single",
@@ -210,8 +209,11 @@ export class CalculatorComponent implements OnInit {
     0.133
   ]
 
+  // Assumptions for Model
   PERCENTAGE_INCOME_AS_SALARY:number = 1.0/3;
   PERCENTAGE_INCOME_AS_BUSINESS_EXPENSE = 0;
+
+  // Tax code constants
   PERCENTAGE_SE_INCOME_SUBJECT_TO_TAX = 0.9235;
   FICA_SOCIAL_SECURITY_RATE = 0.062;
   FICA_MEDICARE_RATE = 0.029;
@@ -222,15 +224,15 @@ export class CalculatorComponent implements OnInit {
   WAGE_LIMIT = 7000;
   STATE_DISABILITY_INSURANCE = 114967;
   
-  // myVar;
-  // myFunction() {
-  //     this.myVar = setTimeout(this.showPage, 3000);
-  // }
-  
-  // showPage() {
-  //   document.getElementById("loader").style.display = "none";
-  //   document.getElementById("myDiv").style.display = "block";
-  // }
+
+  onInputChange(event: any) {
+    console.log(this.myThrivePreferences.financials.annualIncome);
+    this.myThrivePreferences.financials.scorpSalary = 
+      this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
+      
+    this.calculateSPTaxes();
+    this.calculateSCorpTaxes();
+  }
 
   getFederalIncomeTax(taxable_amt){
     let totalTax = 0;
@@ -392,35 +394,22 @@ export class CalculatorComponent implements OnInit {
 
     if(taxable_amt < 157500) {
       deduction = Math.max(0, qbi_20);
-      // console.log("1: " + deduction);
       
     } else if(this.myThrivePreferences.financials.specificedServiceBusiness) {
       if(qbi_20 < wage_temp) {
         deduction = Math.max(0, qbi_20 * (1 - phase_out));
-        // console.log("2: " + deduction);
 
       } else {
         deduction = Math.max(0, (1 - phase_out) * qbi_20 - phase_out * (qbi_20 - wage_temp));
-        // console.log("3: " + deduction);
 
       }
     } else if(qbi_20 < wage_temp) {
       deduction = Math.max(0, qbi_20);
-      // console.log("4: " + deduction);
 
     } else {
       deduction = Math.max(0, qbi_20 - phase_out * (qbi_20 - wage_temp));
-      // console.log("5: " + deduction);
     }
-
-    console.log("1099a deduction: " + deduction);
-    console.log("1099a benefit: " + deduction * margin_rate);
     
-<<<<<<< HEAD
-    
-=======
-    deduction = 0.2 * this.scorpTaxes.scheduleEIncome;
->>>>>>> 67d4f2403a063614c134ca3eb362a244e78d6301
     return deduction * margin_rate;  
   }
   

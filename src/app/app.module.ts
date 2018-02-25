@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 
+//Angular Material
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MyAngularMaterialModulesModule } from "./my-angular-material-modules/my-angular-material-modules.module";
+
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -30,7 +34,9 @@ import { FinancialService } from "./services/financial.service";
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MyAngularMaterialModulesModule
   ],
   providers: [FinancialService],
   bootstrap: [AppComponent]
