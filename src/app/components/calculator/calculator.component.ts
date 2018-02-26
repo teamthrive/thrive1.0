@@ -226,7 +226,7 @@ export class CalculatorComponent implements OnInit {
   
 
   onInputChange(event: any) {
-    console.log(this.myThrivePreferences.financials.annualIncome);
+    // console.log(this.myThrivePreferences.financials.annualIncome);
     this.myThrivePreferences.financials.scorpSalary = 
       this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
       
@@ -336,7 +336,7 @@ export class CalculatorComponent implements OnInit {
       // console.log("5: " + deduction);
     }
 
-    console.log("1099a deduction: " + deduction);
+    // console.log("1099a deduction: " + deduction);
     // console.log("1099a benefit: " + deduction * margin_rate);
     
     return deduction * margin_rate;  
@@ -418,7 +418,7 @@ export class CalculatorComponent implements OnInit {
   /************* Calculate Bottom Lines *************/
   /**************************************************/
   calculateSPTaxes() {
-    console.log("Calculating SP Taxes");
+    // console.log("Calculating SP Taxes");
     this.spTaxes.scheduleEIncome = this.myThrivePreferences.financials.annualIncome;
     this.spTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
     
@@ -443,11 +443,11 @@ export class CalculatorComponent implements OnInit {
                               this.spTaxes.totalStateUnemploymentTaxes -
                               this.spTaxes.total199ABenefit;
 
-    console.log("Total SP tax liability: " + this.spTaxes.totalTaxes);
+    // console.log("Total SP tax liability: " + this.spTaxes.totalTaxes);
   }
 
   calculateSCorpTaxes() {
-    console.log("Calculating S-Corp Taxes");
+    // console.log("Calculating S-Corp Taxes");
     
     this.scorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SCorp(this.myThrivePreferences.financials.annualIncome);
 
@@ -475,23 +475,17 @@ export class CalculatorComponent implements OnInit {
     
     this.scorpTaxes.total199ABenefit = this.get199ABenefit_SCorp(this.myThrivePreferences.financials.annualIncome);
         
-
-    // console.log('fed: '+this.scorpTaxes.totalFederalTaxes);
-    // console.log('se: '+this.scorpTaxes.totalSelfEmploymentTaxes);
-    // console.log('state: '+this.scorpTaxes.totalStateIncomeTaxes);
-    // console.log('199a: '+this.scorpTaxes.total199ABenefit);
-    // Total tax liability
     this.scorpTaxes.totalTaxes = this.scorpTaxes.totalFederalTaxes + 
                                  this.scorpTaxes.totalSelfEmploymentTaxes + 
                                  this.scorpTaxes.totalStateIncomeTaxes - 
                                  this.scorpTaxes.total199ABenefit;
 
-    console.log("Total S Corp tax liability: " + this.scorpTaxes.totalTaxes);
+    // console.log("Total S Corp tax liability: " + this.scorpTaxes.totalTaxes);
   }
 
   calculateCCorpTaxes() {
     this.ccorpTaxes.totalTaxes = this.scorpTaxes.totalTaxes;
-    console.log("Calculating C-Corp Taxes");
+    // console.log("Calculating C-Corp Taxes");
     
     this.ccorpTaxes.totalSelfEmploymentTaxes = this.getSelfEmploymentTax_SP(this.myThrivePreferences.financials.annualIncome);
     this.ccorpTaxes.totalFederalTaxes = this.getFederalIncomeTax(this.myThrivePreferences.financials.annualIncome - this.PERCENTAGE_SE_TAX_DEDUCTION * this.spTaxes.totalSelfEmploymentTaxes);
@@ -504,7 +498,7 @@ export class CalculatorComponent implements OnInit {
                               this.ccorpTaxes.totalStateIncomeTaxes + 
                               this.ccorpTaxes.totalStateUnemploymentTaxes - 313 -
                               this.ccorpTaxes.total199ABenefit;
-    console.log(this.ccorpTaxes.totalTaxes);
+    // console.log(this.ccorpTaxes.totalTaxes);
   }
 
   incorporate() {

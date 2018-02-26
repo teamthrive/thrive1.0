@@ -86,7 +86,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">$</span>
                 </div>
-                <input type="text" class="form-control" name="annualIncome" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.annualIncome">
+                <input type="number" class="form-control" name="annualIncome" aria-label="Amount (to the nearest dollar)" [(ngModel)]="myThrivePreferences.financials.annualIncome">
               </div>
               <h6 style="font-size: 80%; font-weight: 500; display: block; opacity: .7; font-style: italic;">Click number to edit</h6>
             </div>
@@ -116,7 +116,7 @@
       <button class="btn btn-lg btn-primary" routerLink="/incorporate" role="button">Incorporate Now &raquo;</button><br><br><hr>
       <div class="slidecontainer">
         <label for="myRange">Annual Income: {{myThrivePreferences.financials.annualIncome | currency:'USD':'symbol-narrow':'0.0-0'}}</label>
-        <input type="range" min="0" max="250000" step="1000" [(ngModel)]="myThrivePreferences.financials.annualIncome" class="slider" id="myRange" (input)="onInputChange($event)">
+        <input type="range" min="0" max="250000" step="500" [(ngModel)]="myThrivePreferences.financials.annualIncome" class="slider" id="myRange" (input)="onInputChange($event)">
       </div>
       <div class="slidecontainer">
         <label for="myRange">Percentage of Income as Salary: {{ PERCENTAGE_INCOME_AS_SALARY | percent:'.2-2' }}</label>

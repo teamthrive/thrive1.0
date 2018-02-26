@@ -3,38 +3,8 @@
 }
 .container {
   padding: 0;
-}
-#hero {
-	background-image: url("/assets/images/hero.png");
-  background-position: bottom left;
-  width: 100%;
-  height: 425px;
-  background-size: cover;
-}
-#hero-text {
-  color: #fff;
-  padding: 60px;
-  padding-left: 100px;
-  font-family: 'Lato', sans-serif;
-  width: 65%;
-  max-width: 650px;
-}
-#hero-text h1 {
-  font-size: 4em;
-  font-weight: 700;
-}
-#hero-text .subtitle {
-  font-size: 1.7em;
-}
-#hero-text .top-space {
-  margin-top: 50px;
-}
-#hero-text button {
-  width: 70%;
-  height: 70px;
-  font-size: 1.6em;
-  font-weight: bold;
 } */
+
 
 #calculate {
   background-color: rgb(55, 186, 138);
@@ -110,7 +80,7 @@ h2.spaced {
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 23rem;
+  height: 28rem;
   background-color: #777;
 }
 .carousel-item-1 {
