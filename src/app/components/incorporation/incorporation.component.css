@@ -1,1 +1,15 @@
 .hidden { display: none; }
+.value-prop {
+  margin: 40px;
+}
+.columns {
+  display: flex;
+  align-items: top;
+}
+.column {
+  width: 40%;
+  margin-right: auto;
+}
+h4 {
+  font-size: 1.2rem;
+}
