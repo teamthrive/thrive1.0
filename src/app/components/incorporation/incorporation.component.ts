@@ -14,7 +14,7 @@ export class IncorporationComponent implements OnInit {
   }
 
   selectedSection: number = 1;
-  totalNumPages: number = 4;
+  totalNumPages: number = 2;
 
   myThrivePreferences = {
     "incorpReasons": {
@@ -26,17 +26,17 @@ export class IncorporationComponent implements OnInit {
     },
     "typeCorp": "scorp",
     "corpInfo": {
-      "name": "Thrive",
-      "regAgent": "Stephen Blank",
-      "purpose": "1099 tax solution",
-      "organizer": "Lean Launchpad",
-      "members": "Trent, Wendy, Sean, Parker, Sahil",
-      "manageStruct": "Awesome team of 5",
-      "address1": "123 Thrive Avenue",
+      "name": "",
+      "regAgent": "",
+      "purpose": "",
+      "organizer": "",
+      "members": "",
+      "manageStruct": "",
+      "address1": "",
       "address2": "",
-      "city": "Stanford",
-      "state": "CA",
-      "zip": "94305"
+      "city": "",
+      "state": "",
+      "zip": ""
     },
     "financials": {
       "annualIncome": 100000,

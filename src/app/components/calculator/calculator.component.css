@@ -90,3 +90,6 @@ ol.value-prop {
 .column {
   width: 50%;
 }
+::ng-deep .mat-tooltip {
+  font-size: 1rem !important;
+}
