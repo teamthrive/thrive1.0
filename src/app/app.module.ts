@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from "./app-routing/app-routing.module";
+import { HttpModule } from '@angular/http';
 
 //Angular Material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -17,7 +18,7 @@ import { PricingComponent } from './components/pricing/pricing.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { ComparisonsComponent } from './components/comparisons/comparisons.component';
 
-import { FinancialService } from "./services/financial.service";
+import { ContactService } from "./services/contact.service";
 
 @NgModule({
   declarations: [
@@ -34,11 +35,12 @@ import { FinancialService } from "./services/financial.service";
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MyAngularMaterialModulesModule
   ],
-  providers: [FinancialService],
+  providers: [ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
