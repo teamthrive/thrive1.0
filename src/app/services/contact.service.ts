@@ -1,44 +1,23 @@
-// import { Injectable } from '@angular/core';
-// import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-// @Injectable()
-// export class FinancialService {
-
-//   private messageSource = new BehaviorSubject("default message");
-//   currentMessage = this.messageSource.asObservable();
-
-//   constructor() { }
-
-//   changeMessage(message: string) {
-//     this.messageSource.next(message)
-//   }
-
-// }
-
-
 import { Injectable } from '@angular/core';
 import { Contact } from './contact';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { contactSave } from "./contact-add/contact-add.module";
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable()
 export class ContactService {
-  private contactsUrl = 'http://localhost:3000/';
+  private contactsUrl = 'http://localhost:3000/api/contact';
 
-  constructor (private http: Http) {}
+  constructor (private _http:HttpClient) {}
 
-  // post("/api/contacts")
-  // createContact(newContact: Contact): Promise<void | Contact> {
-  //   return this.http.post(this.contactsUrl, newContact)
-  //     .toPromise()
-  //     .then(response => response.json() as Contact)
-  //     .catch((err) => {
-  //     console.log(err);
-  //     console.log("tried")
-  //   });
-  // }
-  createContact() {
-    console.log(contactSave);
-  }
+  createContact(newContact: Contact) {
+    return this._http.post(this.contactsUrl, newContact)
+    .subscribe(res => {
+      console.log(res);
+    }),
+    err => {
+      console.log("Error occured.");
+    }
+  };
 }

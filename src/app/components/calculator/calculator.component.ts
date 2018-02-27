@@ -237,9 +237,9 @@ export class CalculatorComponent implements OnInit {
 
   createNewContact() {
     var contact:Contact = {
-      firstname: 'first_asdf',
-      lastname: 'last_asdf',
-      email: 'email_asdf'
+      firstname: this.myThrivePreferences.financials.firstName,
+      lastname: this.myThrivePreferences.financials.lastName,
+      email: this.myThrivePreferences.financials.email
     }
     this._contact_service.createContact(contact);
   }
@@ -531,7 +531,6 @@ export class CalculatorComponent implements OnInit {
     ));
     this.myThrivePreferences.financials.scorpSalary = 
       this.PERCENTAGE_INCOME_AS_SALARY * this.myThrivePreferences.financials.annualIncome;
-    this.createNewContact();
     return
   }
 
@@ -539,6 +538,7 @@ export class CalculatorComponent implements OnInit {
     this.myThrivePreferences.financials.monthlyIncome = parseFloat(Number(this.myThrivePreferences.financials.annualIncome / 12.0).toFixed(2));
     this.submitAnnualIncome();
     // console.log(this.myThrivePreferences.financials);
+    this.createNewContact();
 
     this.calculateSPTaxes();
     this.calculateSCorpTaxes();
