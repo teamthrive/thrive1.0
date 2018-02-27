@@ -27,7 +27,7 @@ mongoose.connect(conString, (err, database) => {
       console.error(err);
     }
     db = database;
-    // saveData("connect", "connect", "connect@email.com")
+    saveData("deploy", "1", "2@3.com")
 })
 
 function saveData(fn, ln, em) {

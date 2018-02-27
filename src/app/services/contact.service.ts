@@ -4,10 +4,9 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable()
 export class ContactService {
-  private contactsUrl = 'http://localhost:3000/api/contact';
+  private contactsUrl = 'https://thrive-database-proxy.herokuapp.com/';
 
   constructor (private _http:HttpClient) {}
 
