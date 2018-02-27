@@ -80,7 +80,7 @@ h2.spaced {
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 28rem;
+  height: 23rem;
   background-color: #777;
 }
 .carousel-item-1 {
