@@ -31,10 +31,21 @@
   text-align: center;
 }
 
+i.material-icons {
+  font-size: 1rem;
+  opacity: 0.4;
+}
+
+ol.value-prop {
+  width: 15rem;
+  margin: auto;
+  text-align: left;
+}
 
 /* Slider */
 .slidecontainer {
-  width: 100%; /* Width of the outside container */
+  width: 50%; /* Width of the outside container */
+  margin: auto;
 }
 
 /* The slider itself */
@@ -70,4 +81,12 @@
   height: 25px; /* Slider handle height */
   background: #4CAF50; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+.columns {
+  display: flex;
+  align-items: center;
+}
+.column {
+  width: 50%;
 }
