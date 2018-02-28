@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FinancialService } from "../../services/financial.service";
+import { ContactService } from "../../services/contact.service";
 
 @Component({
   selector: 'app-comparisons',
@@ -10,10 +10,10 @@ export class ComparisonsComponent implements OnInit {
 
   message:string;
 
-  constructor(private data: FinancialService) { }
+  constructor(private data: ContactService) { }
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message)
+    // this.data.currentMessage.subscribe(message => this.message = message)
   }
 
 }

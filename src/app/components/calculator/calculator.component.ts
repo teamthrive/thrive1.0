@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FinancialService } from "../../services/financial.service";
+import { ContactService } from "../../services/contact.service";
 import { MyAngularMaterialModulesModule } from "../../my-angular-material-modules/my-angular-material-modules.module";
+import { Contact } from '../../services/contact';
 
 @Component({
   selector: 'app-incorporation',
@@ -12,7 +13,7 @@ export class CalculatorComponent implements OnInit {
 
   // message:string;
 
-  constructor(private router: Router, private data: FinancialService) { }
+  constructor(private router: Router, private _contact_service: ContactService) { }
 
   ngOnInit() {
     // this.data.currentMessage.subscribe(message => this.message = message)
@@ -232,6 +233,15 @@ export class CalculatorComponent implements OnInit {
       
     this.calculateSPTaxes();
     this.calculateSCorpTaxes();
+  }
+
+  createNewContact() {
+    var contact:Contact = {
+      firstname: this.myThrivePreferences.financials.firstName,
+      lastname: this.myThrivePreferences.financials.lastName,
+      email: this.myThrivePreferences.financials.email
+    }
+    this._contact_service.createContact(contact);
   }
 
   getFederalIncomeTax(taxable_amt){
@@ -528,6 +538,7 @@ export class CalculatorComponent implements OnInit {
     this.myThrivePreferences.financials.monthlyIncome = parseFloat(Number(this.myThrivePreferences.financials.annualIncome / 12.0).toFixed(2));
     this.submitAnnualIncome();
     // console.log(this.myThrivePreferences.financials);
+    this.createNewContact();
 
     this.calculateSPTaxes();
     this.calculateSCorpTaxes();
