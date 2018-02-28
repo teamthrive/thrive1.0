@@ -239,7 +239,10 @@ export class CalculatorComponent implements OnInit {
     var contact:Contact = {
       firstname: this.myThrivePreferences.financials.firstName,
       lastname: this.myThrivePreferences.financials.lastName,
-      email: this.myThrivePreferences.financials.email
+      email: this.myThrivePreferences.financials.email,
+      state: this.myThrivePreferences.financials.state,
+      workType: this.myThrivePreferences.financials.workType,
+      annualIncome: this.myThrivePreferences.financials.annualIncome
     }
     this._contact_service.createContact(contact);
   }
