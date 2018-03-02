@@ -19,6 +19,12 @@ td{
   padding: 8px 10px;
 }
 
+.table-head{
+  font-size: .9rem;
+  color: #777777;
+  text-transform: uppercase;
+}
+
 .incorporate-col-1{
   font-size: 1.5rem;
   font-weight: 700;
