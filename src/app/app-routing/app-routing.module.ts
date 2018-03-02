@@ -7,11 +7,12 @@ import { HomeComponent } from '../components/home/home.component';
 import { PricingComponent } from '../components/pricing/pricing.component';
 import { FeaturesComponent } from '../components/features/features.component';
 import { ComparisonsComponent } from "../components/comparisons/comparisons.component";
+import { SubmittedComponent } from "../components/submitted/submitted.component"
 
 const routes: Routes = [
   {
-    path: 'comparisons',
-    component: ComparisonsComponent,
+    path: 'submitted',
+    component: SubmittedComponent,
   },
   {
     path: 'calculator',

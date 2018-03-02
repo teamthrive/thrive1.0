@@ -20,6 +20,7 @@ import { FeaturesComponent } from './components/features/features.component';
 import { ComparisonsComponent } from './components/comparisons/comparisons.component';
 
 import { ContactService } from "./services/contact.service";
+import { SubmittedComponent } from './components/submitted/submitted.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ContactService } from "./services/contact.service";
     FooterComponent,
     PricingComponent,
     FeaturesComponent,
-    ComparisonsComponent
+    ComparisonsComponent,
+    SubmittedComponent
   ],
   imports: [
     BrowserModule,
