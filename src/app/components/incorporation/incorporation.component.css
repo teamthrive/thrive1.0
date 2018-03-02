@@ -14,15 +14,20 @@ h4 {
   font-size: 1.2rem;
 }
 
+td{
+  border: 1px solid #eaeaea;
+  padding: 3px;
+}
+
 .incorporate-col-1{
-  color: #8d8d8d;
-  font-style: italic;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
+  width: 190px;
 }
 
 .incorporate-col-2{
-  color: green;
+  color: #4e9f73;
+  font-weight: 700;
 }
 
 .incorporate-col-3{
@@ -30,5 +35,6 @@ h4 {
 }
 
 .incorporate-col-4{
-  font-size: 0.75rem;
+  font-size: .85rem;
+  width: 30%;
 }
