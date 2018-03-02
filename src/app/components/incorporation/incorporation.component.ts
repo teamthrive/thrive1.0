@@ -158,7 +158,7 @@ export class IncorporationComponent implements OnInit {
         (<FormControl>cardFormObject.controls[control]).markAsDirty();
       }
     } else {
-      this.nextClicked();
+      this.router.navigate(["submitted"]);
     }
   }
 }
