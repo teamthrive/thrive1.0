@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { 
@@ -11,17 +13,21 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    MatSliderModule,
-    MatInputModule,
-    MatCheckboxModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSliderModule,
     MatTooltipModule
   ],
   exports: [
-    MatSliderModule,
-    MatInputModule,
-    MatCheckboxModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSliderModule,
     MatTooltipModule
   ],
   declarations: []

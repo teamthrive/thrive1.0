@@ -49,96 +49,200 @@
 
 <!-- Section 2 -->
 <div [class.hidden]="selectedSection !== 2" class="container" style="padding: 5% 20%;">
-  <!-- LLC -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'llc'">
-    <h2>Let's set up your LLC.</h2>
-  </div>
-
-  <!-- S-Corp -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'scorp'">
-    <h2>Let's set up your S-Corporation.</h2>
-  </div>
-
-  <!-- C-Corp -->
-  <div [class.hidden]="myThrivePreferences.typeCorp != 'ccorp'">
-    <h2>Let's set up your C-Corporation.</h2>
-  </div>
-  
+  <h2>Let's set up your S-Corporation.</h2>
+  <h5>Just one page... we promise!</h5>
+  <br>
   <form>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Company name</label>
-        <input type="text" class="form-control" name="name" [(ngModel)]="myThrivePreferences.corpInfo.name">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Business purpose</label>
-        <input type="text" class="form-control" name="purpose" [(ngModel)]="myThrivePreferences.corpInfo.purpose">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputEmail4">Organizer</label>
+        <label for="organizer">Your full name</label>
         <input type="text" class="form-control" name="organizer" [(ngModel)]="myThrivePreferences.corpInfo.organizer">
       </div>
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Members/Managers</label>
-        <input type="text" class="form-control" name="members" [(ngModel)]="myThrivePreferences.corpInfo.members">
+        <label for="organizer">Your email</label>
+        <input type="text" class="form-control" name="email" [(ngModel)]="myThrivePreferences.corpInfo.email">
       </div>
+      <div class="form-group col-md-6">
+        <label for="legalName">Company legal name <i class="icon" matTooltip="Please enter the company name exactly as you wish it to appear in legal documents." matTooltipPosition="right" class="material-icons">info</i></label>
+        <input type="text" class="form-control" name="legalName" [(ngModel)]="myThrivePreferences.corpInfo.legalName">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="tradeName">Company trade name (if different) <i class="icon" matTooltip="A trade name is any name used in the course of business that doesn’t include the full legal name of the business. For example, McDonald’s is the trade name of the company legally registered as McDonald’s Corporation." matTooltipPosition="right" class="material-icons">info</i></label>
+        <input type="text" class="form-control" name="tradeName" [(ngModel)]="myThrivePreferences.corpInfo.tradeName">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="workType">Type of Work</label>
+        <select name="workType" [(ngModel)]="myThrivePreferences.corpInfo.workType" required>
+          <option *ngFor="let occupation of OCCUPATIONS" value={{occupation}}>
+            {{occupation}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="purpose">Business purpose (if other)</label>
+        <input [disabled]="!businessPurposeDisabled()" type="text" class="form-control" name="purpose" [(ngModel)]="myThrivePreferences.corpInfo.purpose">
+      </div>
+    </div>
+    <div class="form-row">
       <div class="form-group col-md-12">
-        <label for="inputAddress">Legal address of the company</label>
+        <label for="inputAddress">Company address (for legal purposes)</label>
         <input type="text" class="form-control" name="inputAddress" [(ngModel)]="myThrivePreferences.corpInfo.address1">
       </div>
       <div class="form-group col-md-12">
         <label for="inputAddress2">Address 2</label>
         <input type="text" class="form-control" name="inputAddress2" [(ngModel)]="myThrivePreferences.corpInfo.address2">
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputCity">City</label>
-          <input type="text" class="form-control" name="inputCity" [(ngModel)]="myThrivePreferences.corpInfo.city">
+      <div class="form-group col-md-4">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" name="inputCity" [(ngModel)]="myThrivePreferences.corpInfo.city">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">State</label>
+        <select name="inputState" class="form-control" [(ngModel)]="myThrivePreferences.corpInfo.state">
+          <option selected>Choose...</option>
+          <option>CA</option>
+          <option>DE</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" name="inputZip" [(ngModel)]="myThrivePreferences.corpInfo.zip">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="capitalContribution">Capital Contribution <i class="icon" matTooltip="Please enter the total fair market value (FMV) of all cash and other assets you plan to transfer to the new S-Corporation." matTooltipPosition="right" class="material-icons">info</i></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="text" class="form-control" name="capitalContribution" [(ngModel)]="myThrivePreferences.corpInfo.capitalContribution">
         </div>
-        <div class="form-group col-md-4">
-          <label for="inputState">State</label>
-          <select name="inputState" class="form-control" [(ngModel)]="myThrivePreferences.corpInfo.state">
-            <option selected>Choose...</option>
-            <option>CA</option>
-            <option>DE</option>
-          </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label style="height: 5rem" for="wagesDate">Date corporation will begin paying wages</label>
+        <input mdInput [matDatepicker]="wagesDatePicker" [(ngModel)]="myThrivePreferences.corpInfo.wagesDate" name="wagesDate">
+        <mat-datepicker-toggle matSuffix [for]="wagesDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #wagesDatePicker></mat-datepicker>
+      </div>
+      <div class="form-group col-md-6">
+        <label style="height: 5rem" for="numberEmployees">Estimate the maximum number of employees you will hire in the next 12 months</label>
+        <input type="text" class="form-control" name="numberEmployees" [(ngModel)]="myThrivePreferences.corpInfo.numberEmployees">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <div>
+          <label for="heavyVehicle">Does your corporation own a vehicle with a taxable gross weight of 55,000 pounds or more?</label>
         </div>
-        <div class="form-group col-md-2">
-          <label for="inputZip">Zip</label>
-          <input type="text" class="form-control" name="inputZip" [(ngModel)]="myThrivePreferences.corpInfo.zip">
+        <select name="heavyVehicle" [(ngModel)]="myThrivePreferences.corpInfo.heavyVehicle" required>
+          <option *ngFor="let response of objectKeys(TRUE_FALSE)" value={{TRUE_FALSE[response]}}>
+            {{response}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-12">
+        <div>
+          <label for="restrictedRetail">Does your business make or sell alcohol, tobacco or firearms?</label>
+        </div>
+        <select name="restrictedRetail" [(ngModel)]="myThrivePreferences.corpInfo.restrictedRetail" required>
+          <option *ngFor="let response of objectKeys(TRUE_FALSE)" value={{TRUE_FALSE[response]}}>
+            {{response}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-12">
+        <div>
+          <label for="businessLicense">Do you need help applying for any relevant business licenses?</label>
+        </div>
+        <select name="businessLicense" [(ngModel)]="myThrivePreferences.corpInfo.businessLicense" required>
+          <option *ngFor="let response of objectKeys(TRUE_FALSE)" value={{TRUE_FALSE[response]}}>
+            {{response}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="payment container-fluid py-3">
+      <div class="row">
+        <div class="col-12 col-sm-8 mx-auto">
+          <div id="pay-invoice" class="card">
+            <div class="card-body">
+              <div class="invoice-wrapper">
+                <div class="invoice-box a"><h3>Invoice</h3></div>
+                <div class="invoice-box b">
+                  <span class="price">$100</span>
+                  <div>Incorporation fee</div>
+                </div>
+                <div class="invoice-box c">
+                  <span class="price">$16 / month</span>
+                  <div>Maintenance fee</div>
+                </div>
+              </div>
+              <hr>
+              <p id="trial">Try maintenance features free with no obligation for 30 days.</p>
+              <hr>
+              <div class="form-group text-center">
+                <ul class="list-inline">
+                  <li class="list-inline-item"><i class="text-muted fab fa-cc-visa fa-2x"></i></li>
+                  <li class="list-inline-item"><i class="fab fa-cc-mastercard fa-2x"></i></li>
+                  <li class="list-inline-item"><i class="fab fa-cc-amex fa-2x"></i></li>
+                  <li class="list-inline-item"><i class="fab fa-cc-discover fa-2x"></i></li>
+                </ul>
+              </div>
+              <div class="form-group has-success">
+                <label for="cc-name" class="control-label mb-1">Name on card</label>
+                <input id="cc-name" name="cc-name" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+              </div>
+              <div class="form-group">
+                <label for="cc-number" class="control-label mb-1">Card number</label>
+                <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number" autocomplete="cc-number">
+                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="cc-exp" class="control-label mb-1">Expiration</label>
+                    <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="MM / YY" autocomplete="cc-exp">
+                    <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label for="x_card_code" class="control-label mb-1">Security code</label>
+                  <div class="input-group">
+                    <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" value="" data-val="true" data-val-required="Please enter the security code" data-val-cc-cvc="Please enter a valid security code" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="x_zip" class="control-label mb-1">Postal code</label>
+                <input id="x_zip" name="x_zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code">
+                <span class="help-block" data-valmsg-for="x_zip" data-valmsg-replace="true"></span>
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" (click)="nextClicked()">
+                  <i class="fa fa-lock fa-lg"></i>&nbsp;
+                  <span id="payment-button-amount">Submit Application</span>
+                  <span id="payment-button-sending" style="display:none;">Sending…</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </form>
 </div>
 
-<!-- Section 6 -->
+<!-- Section 3 -->
 <div [class.hidden]="selectedSection !== 3" class="container" style="padding: 5% 20%;">
-  <h2>Are you ready to submit your incorporation application?</h2><br>
-  <h3>Review your company information:</h3>
-  <div class="container">
-    <b>Company name:</b> {{myThrivePreferences.corpInfo.name}} <br>
-    <b>Registered agent:</b> {{myThrivePreferences.corpInfo.regAgent}} <br>
-    <b>Purpose:</b> {{myThrivePreferences.corpInfo.purpose}} <br>
-    <b>Organizer:</b> {{myThrivePreferences.corpInfo.organizer}} <br>
-    <b>Members:</b> {{myThrivePreferences.corpInfo.members}} <br>
-    <b>Management structure:</b> {{myThrivePreferences.corpInfo.manageStruct}} <br>
-    <b>Address 1:</b> {{myThrivePreferences.corpInfo.address1}} <br>
-    <b>Address 2:</b> {{myThrivePreferences.corpInfo.address2}} <br>
-    <b>City:</b> {{myThrivePreferences.corpInfo.city}} <br>
-    <b>State:</b> {{myThrivePreferences.corpInfo.state}} <br>
-    <b>Zipcode:</b> {{myThrivePreferences.corpInfo.zip}}
-  </div><br>
-  <div class="container">
-    <button type="button" class="btn btn-secondary btn-lg" [disabled]="selectedSection === 1" (click)="prevClicked()">Previous</button>
-    <button class="btn btn-success btn-lg" type="submit" (click)="applyIncorp()">Apply</button>
-  </div>
-</div>
-
-<!-- Section 7 -->
-<div [class.hidden]="selectedSection !== 4" class="container" style="padding: 5% 20%;">
-  <h1 style="text-align:center">Congratulations</h1> 
-  <h2 style="text-align:center">You have successfully applied to incorporate your company!</h2>
+  <h1>Thank you for your interest in Thrive</h1> 
+  <br>
+  <p>Thrive is currently in beta, and unfortunately we are not accepting new customers at this time. You have been added to our waitlist.</p>
+  <p><em>Rest assured, your personal information and payment information will not be stored.</em></p>
 </div>
 
 <!-- Previous | Next -->

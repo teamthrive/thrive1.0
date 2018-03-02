@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MyAngularMaterialModulesModule } from "../../my-angular-material-modules/my-angular-material-modules.module";
 
 @Component({
   selector: 'app-incorporation',
@@ -13,59 +14,71 @@ export class IncorporationComponent implements OnInit {
   ngOnInit() {
   }
 
+  objectKeys = Object.keys
+
   selectedSection: number = 1;
-  totalNumPages: number = 2;
+  totalNumPages: number = 1;
 
   myThrivePreferences = {
-    "incorpReasons": {
-      "limitLiab": false,
-      "simpTax": false,
-      "professional": false,
-      "business": false,
-      "fundraise":false
-    },
     "typeCorp": "scorp",
     "corpInfo": {
       "name": "",
-      "regAgent": "",
+      "email": "",
+      "legalName": "",
+      "tradeName": "",
+      "workType": "Real Estate Agent",
       "purpose": "",
       "organizer": "",
-      "members": "",
-      "manageStruct": "",
       "address1": "",
       "address2": "",
       "city": "",
       "state": "",
-      "zip": ""
-    },
-    "financials": {
-      "annualIncome": 100000,
-      "annualExpenses": 0,
-      "filingStatus": "single",
-      "scorpSalary": 0,
-      "additionalTaxableIncome": 0,
-      "estCompanyAssets": 0,
-      "specificedServiceBusiness": false
+      "zip": "",
+      "capitalContribution": 10000,
+      "wagesDate": new Date(),
+      "numberEmployees": 0,
+      "heavyVehicle": false,
+      "restrictedRetail": false,
+      "businessLicense": true
     }
   }
-  
-  applyIncorp() {
-    console.log(this.myThrivePreferences.corpInfo)
-    this.selectedSection = this.selectedSection + 1;
+
+   OCCUPATIONS = [
+    "Real Estate Agent",
+    "Architect",
+    "Consultant",
+    "Creative Professional",
+    "Doctor",
+    "Engineer",
+    "Lawyer",
+    "Salesperson",
+    "Tradesman",
+    "Other Professional",
+    "Other Non-Professional"
+  ]
+
+  TRUE_FALSE = {
+    "Yes": true,
+    "No": false
   }
 
   nextClicked() {
-    console.log(this.myThrivePreferences)
     this.selectedSection = this.selectedSection + 1;
+    window.scrollTo(0, 0);
   }
 
   prevClicked() {
-    console.log(this.myThrivePreferences)
     if(this.selectedSection == 1) {
       this.router.navigate(['calculator']);
     }
     if(this.selectedSection > 1) {
       this.selectedSection = this.selectedSection - 1;
     }
+    window.scrollTo(0, 0);
+  }
+
+  businessPurposeDisabled() {
+    return ["Tradesman", "Other Professional", "Other Non-Professional"].includes(
+        this.myThrivePreferences.corpInfo.workType);
   }
 }

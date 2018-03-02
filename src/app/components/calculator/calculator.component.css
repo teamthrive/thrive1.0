@@ -31,11 +31,6 @@
   text-align: center;
 }
 
-i.material-icons {
-  font-size: 1rem;
-  opacity: 0.4;
-}
-
 ol.value-prop {
   width: 15rem;
   margin: auto;
@@ -89,9 +84,6 @@ ol.value-prop {
 }
 .column {
   width: 50%;
-}
-::ng-deep .mat-tooltip {
-  font-size: 1rem !important;
 }
 
 /* form validation */
