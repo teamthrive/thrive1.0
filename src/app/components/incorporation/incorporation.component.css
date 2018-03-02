@@ -16,25 +16,26 @@ h4 {
 
 td{
   border: 1px solid #eaeaea;
-  padding: 3px;
+  padding: 8px 10px;
 }
 
 .incorporate-col-1{
   font-size: 1.5rem;
   font-weight: 700;
-  width: 190px;
+  width: 30%;
 }
 
-.incorporate-col-2{
+.incorporate-col-1 div{
   color: #4e9f73;
   font-weight: 700;
 }
 
-.incorporate-col-3{
+.incorporate-col-2{
   font-size: 1.0rem;
+  width: 33%;
 }
 
-.incorporate-col-4{
+.incorporate-col-3{
   font-size: .85rem;
   width: 30%;
 }
