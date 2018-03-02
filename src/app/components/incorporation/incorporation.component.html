@@ -58,23 +58,41 @@
   <h2>Let's set up your S-Corporation.</h2>
   <h5>Just one page... we promise!</h5>
   <br>
-  <form>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="organizer">Your full name</label>
-        <input type="text" class="form-control" name="organizer" [(ngModel)]="myThrivePreferences.corpInfo.organizer">
+        <input type="text" class="form-control mb-2" name="organizer" #organizer="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.organizer" required>
+        <div *ngIf="organizer.errors && (organizer.dirty || organizer.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!organizer.errors.required">
+            Full name is required!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label for="organizer">Your email</label>
-        <input type="text" class="form-control" name="email" [(ngModel)]="myThrivePreferences.corpInfo.email">
+        <input type="text" class="form-control mb-2" name="email" #email="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.email" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
+        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!email.errors.required">
+            Email is required!
+          </span>
+          <span [hidden]="email.errors.required">
+            Email is not valid!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label for="legalName">Company legal name <i class="icon" matTooltip="Please enter the company name exactly as you wish it to appear in legal documents." matTooltipPosition="right" class="material-icons">info</i></label>
-        <input type="text" class="form-control" name="legalName" [(ngModel)]="myThrivePreferences.corpInfo.legalName">
+        <input type="text" class="form-control mb-2" name="legalName" #legalName="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.legalName" required>
+        <div *ngIf="legalName.errors && (legalName.dirty || legalName.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!legalName.errors.required">
+            Company name is required!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label for="tradeName">Company trade name (if different) <i class="icon" matTooltip="A trade name is any name used in the course of business that doesn’t include the full legal name of the business. For example, McDonald’s is the trade name of the company legally registered as McDonald’s Corporation." matTooltipPosition="right" class="material-icons">info</i></label>
-        <input type="text" class="form-control" name="tradeName" [(ngModel)]="myThrivePreferences.corpInfo.tradeName">
+        <input type="text" class="form-control mb-2" name="tradeName" [(ngModel)]="myThrivePreferences.corpInfo.tradeName">
       </div>
       <div class="form-group col-md-6">
         <label for="workType">Type of Work</label>
@@ -86,43 +104,71 @@
       </div>
       <div class="form-group col-md-6">
         <label for="purpose">Business purpose (if other)</label>
-        <input [disabled]="!businessPurposeDisabled()" type="text" class="form-control" name="purpose" [(ngModel)]="myThrivePreferences.corpInfo.purpose">
+        <input [disabled]="!businessPurposeDisabled()" type="text" class="form-control mb-2" name="purpose" [(ngModel)]="myThrivePreferences.corpInfo.purpose">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="inputAddress">Company address (for legal purposes)</label>
-        <input type="text" class="form-control" name="inputAddress" [(ngModel)]="myThrivePreferences.corpInfo.address1">
+        <input type="text" class="form-control mb-2" name="inputAddress" #inputAddress="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.address1" required>
+        <div *ngIf="inputAddress.errors && (inputAddress.dirty || inputAddress.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!inputAddress.errors.required">
+            Address is required!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-12">
         <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" name="inputAddress2" [(ngModel)]="myThrivePreferences.corpInfo.address2">
+        <input type="text" class="form-control mb-2" name="inputAddress2" [(ngModel)]="myThrivePreferences.corpInfo.address2">
       </div>
       <div class="form-group col-md-4">
         <label for="inputCity">City</label>
-        <input type="text" class="form-control" name="inputCity" [(ngModel)]="myThrivePreferences.corpInfo.city">
+        <input type="text" class="form-control mb-2" name="inputCity" #inputCity="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.city" required>
+        <div *ngIf="inputCity.errors && (inputCity.dirty || inputCity.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!inputCity.errors.required">
+            City is required!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-4">
         <label for="inputState">State</label>
-        <select name="inputState" class="form-control" [(ngModel)]="myThrivePreferences.corpInfo.state">
-          <option selected>Choose...</option>
-          <option>CA</option>
-          <option>DE</option>
+        <select class="form-control mb-2" name="inputState" #inputState="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.state" required>
+          <option *ngFor="let state of STATES" value={{state}}>
+            {{state}}
+          </option>
         </select>
+        <div *ngIf="inputState.errors && (inputState.dirty || inputState.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!inputState.errors.required">
+            State is required!
+          </span>
+        </div>
       </div>
       <div class="form-group col-md-4">
         <label for="inputZip">Zip</label>
-        <input type="text" class="form-control" name="inputZip" [(ngModel)]="myThrivePreferences.corpInfo.zip">
+        <input type="text" class="form-control mb-2" name="inputZip" #inputZip="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.zip" pattern="^[0-9][0-9][0-9][0-9][0-9]$" required>
+        <div *ngIf="inputZip.errors && (inputZip.dirty || inputZip.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!inputZip.errors.required">
+            Zip is required!
+          </span>
+          <span [hidden]="inputZip.errors.required">
+            Invalid zip
+          </span>
+        </div>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="capitalContribution">Capital Contribution <i class="icon" matTooltip="Please enter the total fair market value (FMV) of all cash and other assets you plan to transfer to the new S-Corporation." matTooltipPosition="right" class="material-icons">info</i></label>
-        <div class="input-group">
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text">$</span>
           </div>
-          <input type="text" class="form-control" name="capitalContribution" [(ngModel)]="myThrivePreferences.corpInfo.capitalContribution">
+          <input type="number" class="form-control" name="capitalContribution" #capitalContribution="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.capitalContribution" required>
+        </div>
+        <div *ngIf="capitalContribution.errors && (capitalContribution.dirty || capitalContribution.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!capitalContribution.errors.required">
+            Capital contribution is required!
+          </span>
         </div>
       </div>
       <div class="form-group col-md-6">
@@ -133,7 +179,12 @@
       </div>
       <div class="form-group col-md-6">
         <label style="height: 5rem" for="numberEmployees">Estimate the maximum number of employees you will hire in the next 12 months</label>
-        <input type="text" class="form-control" name="numberEmployees" [(ngModel)]="myThrivePreferences.corpInfo.numberEmployees">
+        <input type="number" class="form-control mb-2" name="numberEmployees" #numberEmployees="ngModel" [(ngModel)]="myThrivePreferences.corpInfo.numberEmployees" required>
+        <div *ngIf="numberEmployees.errors && (numberEmployees.dirty || numberEmployees.touched)" class="alert alert-danger input-group mb-2">
+          <span [hidden]="!numberEmployees.errors.required">
+            Number of employees is required!
+          </span>
+        </div>
       </div>
     </div>
     <div class="form-row">
@@ -199,36 +250,66 @@
               </div>
               <div class="form-group has-success">
                 <label for="cc-name" class="control-label mb-1">Name on card</label>
-                <input id="cc-name" name="cc-name" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
-                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                <input id="cc-name" name="cc-name" #ccName="ngModel" type="text" class="form-control cc-name valid" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error" [(ngModel)]="myThrivePreferences.ccInfo.ccName" required>
+                <div *ngIf="ccName.errors && (ccName.dirty || ccName.touched)" class="alert alert-danger input-group mb-2">
+                  <span [hidden]="!ccName.errors.required">
+                    Please enter the name on card
+                  </span>
+                </div>
               </div>
               <div class="form-group">
                 <label for="cc-number" class="control-label mb-1">Card number</label>
-                <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number" autocomplete="cc-number">
-                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                <input id="cc-number" name="cc-number" #ccNumber="ngModel" type="tel" class="form-control cc-number identified visa" value="" autocomplete="cc-number" [(ngModel)]="myThrivePreferences.ccInfo.ccNumber" required>
+                <div *ngIf="ccNumber.errors && (ccNumber.dirty || ccNumber.touched)" class="alert alert-danger input-group mb-2">
+                  <span [hidden]="!ccNumber.errors.required">
+                    Please enter the card number
+                  </span>
+                </div>
               </div>
               <div class="row">
                 <div class="col-6">
                   <div class="form-group">
                     <label for="cc-exp" class="control-label mb-1">Expiration</label>
-                    <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="MM / YY" autocomplete="cc-exp">
-                    <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                    <input id="cc-exp" name="cc-exp" #ccExp="ngModel" type="tel" class="form-control cc-exp" value="" placeholder="MM / YY" autocomplete="cc-exp" [(ngModel)]="myThrivePreferences.ccInfo.ccExp" pattern="[0-9][0-9]?/[0-9][0-9]" required>
+                    <div *ngIf="ccExp.errors && (ccExp.dirty || ccExp.touched)" class="alert alert-danger input-group mb-2">
+                      <span [hidden]="!ccExp.errors.required">
+                        Please enter the card expiration
+                      </span>
+                      <span [hidden]="ccExp.errors.required">
+                        Please enter a valid month and year
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-6">
                   <label for="x_card_code" class="control-label mb-1">Security code</label>
                   <div class="input-group">
-                    <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" value="" data-val="true" data-val-required="Please enter the security code" data-val-cc-cvc="Please enter a valid security code" autocomplete="off">
+                    <input id="x_card_code" name="x_card_code" #xCardCode="ngModel" type="tel" class="form-control cc-cvc" value="" autocomplete="off" [(ngModel)]="myThrivePreferences.ccInfo.xCardCode" pattern="[0-9][0-9][0-9][0-9]?" required>
+                    <div *ngIf="xCardCode.errors && (xCardCode.dirty || xCardCode.touched)" class="alert alert-danger input-group mb-2">
+                      <span [hidden]="!xCardCode.errors.required">
+                        Please enter the security code
+                      </span>
+                      <span [hidden]="xCardCode.errors.required">
+                        Please enter a valid security code
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="x_zip" class="control-label mb-1">Postal code</label>
-                <input id="x_zip" name="x_zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code">
-                <span class="help-block" data-valmsg-for="x_zip" data-valmsg-replace="true"></span>
+                <input id="x_zip" name="x_zip" #xZip="ngModel" type="text" class="form-control" value="" autocomplete="postal-code" [(ngModel)]="myThrivePreferences.ccInfo.xZip" pattern="[0-9][0-9][0-9][0-9][0-9]" required>
+                <div *ngIf="xZip.errors && (xZip.dirty || xZip.touched)" class="alert alert-danger input-group mb-2">
+                  <span [hidden]="!xZip.errors.required">
+                    Please enter the ZIP/Postal code
+                  </span>
+                  <span [hidden]="xZip.errors.required">
+                    Please enter a valid ZIP/Postal code
+                  </span>
+                </div>
               </div>
               <div>
-                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" (click)="nextClicked()">
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" >
                   <i class="fa fa-lock fa-lg"></i>&nbsp;
                   <span id="payment-button-amount">Submit Application</span>
                   <span id="payment-button-sending" style="display:none;">Sending…</span>
