@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactService } from "../../services/contact.service";
 import { MyAngularMaterialModulesModule } from "../../my-angular-material-modules/my-angular-material-modules.module";
@@ -557,6 +558,16 @@ export class CalculatorComponent implements OnInit {
       this.submittedFinancials = true;
       clearInterval(this.interval);
     }, 3000);
+  }
+
+    onSubmit(cardFormObject: NgForm) {
+    if (!cardFormObject.valid) {
+      for (var control in cardFormObject.controls) {
+        (<FormControl>cardFormObject.controls[control]).markAsDirty();
+      }
+    } else {
+      this.submitAnnualIncome();
+    }
   }
 
 }

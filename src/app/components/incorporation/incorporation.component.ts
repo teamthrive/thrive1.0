@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgForm, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MyAngularMaterialModulesModule } from "../../my-angular-material-modules/my-angular-material-modules.module";
 
 @Component({

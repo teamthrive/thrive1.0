@@ -1,5 +1,5 @@
 <div class="container" [class.hidden]="submittedFinancials || calculating">
-  <form id="calculator">
+  <form id="calculator" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <h2 style="margin-left: -5px;">Calculate your tax savings.</h2>
     <div class="form-row">
       <div class="form-group">
@@ -40,6 +40,9 @@
         <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger input-group mb-3">
           <span [hidden]="!email.errors.required">
             Email is required!
+          </span>
+          <span [hidden]="email.errors.required">
+            Email is not valid!
           </span>
         </div>
       </div>
@@ -85,8 +88,7 @@
 
     <!-- Button trigger modal -->
     <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter" 
-      [disabled]="firstName.invalid || lastName.invalid || email.invalid"
-      (click)="submitAnnualIncome()">
+      [attr.data-toggle]="(firstName.invalid || lastName.invalid || email.invalid) ? null : 'modal'">
       Calculate Potential Savings
     </button>
 
