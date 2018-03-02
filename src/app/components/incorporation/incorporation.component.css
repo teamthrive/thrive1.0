@@ -22,12 +22,16 @@ td{
 .incorporate-col-1{
   font-size: 1.5rem;
   font-weight: 700;
-  width: 30%;
+  width: 28%;
 }
 
 .incorporate-col-1 div{
   color: #4e9f73;
   font-weight: 700;
+  background-color: #e0faf2;
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 70%;
 }
 
 .incorporate-col-2{
