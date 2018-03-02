@@ -20,9 +20,10 @@ td{
 }
 
 .table-head{
-  font-size: .9rem;
-  color: #777777;
+  font-size: .9rem !important;
+  color: #878787;
   text-transform: uppercase;
+  font-weight: 500 !important;
 }
 
 .incorporate-col-1{
